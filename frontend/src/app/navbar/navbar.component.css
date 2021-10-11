@@ -1,0 +1,67 @@
+.container{
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    width: 300px;
+
+    border-right-style: solid;
+    border-right-width: thin;
+    border-right-color: #e5e5e5;
+
+    height: 100vh;
+}
+
+.nav-profile-picture{
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 30px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.nav-header{
+    margin-left: 15px;
+}
+
+.nav-header-text{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.nav-header-icon{
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 175px;
+    opacity: 65%;
+}
+
+.nav-icon{
+    opacity: 65%;
+}
+
+.nav-icon.active{
+    opacity: 100%;
+}
+
+.nav-text{
+    position: absolute;
+    margin-top: 2.5px;
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+.nav-divider{
+    margin-top: 20px;
+    color: #e5e5e5;
+}
+
+.nav-sub-header{
+    font-weight: bold;
+    opacity: 35%;
+    margin-left: 15px;
+    margin-bottom: 2.5px;
+}
+
+.mat-list-item.active{
+    background-color: #E3F2FD;
+    color: #2196F3;
+}
