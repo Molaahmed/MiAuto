@@ -1,0 +1,50 @@
+<div class="aParent">
+    <div>
+        <app-navbar></app-navbar>
+    </div>
+    <div class="container">
+        <mat-card class="overview-card">
+            <mat-card-header>
+                <h1 class="card-title">Garages</h1>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <form class="search-garage-form">
+                <mat-form-field class="search-garage-full-width" appearance="fill">
+                    <mat-label>Search a garage</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </form>
+            <div class="cards">
+                <div *ngFor="let item of garages">
+                    <mat-card class="garage-card">
+                        <img mat-card-image [src]="item.image" alt="Quito" class="garage-image">
+                        <mat-card-content>
+                            <h5 class="garage-name-text">
+                                {{item.name}}
+                            </h5>
+                            <h2 class="garage-city-text">
+                                {{item.city}}
+                            </h2>
+                            <p class="garage-info-text">
+                                {{item.info}}
+                            </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-button color="primary" class="garage-details-button">DETAILS</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <div>
+                    <mat-card class="garage-card">
+                        <div class="create-new-content">
+                            <button mat-fab (click)="openDialog()" color="primary">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <h1 class="create-title">CREATE NEW</h1>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

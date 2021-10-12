@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Create New Garage</h2>
+<mat-dialog-content>
+    <form class="create-garage-form">
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-split-label-left" appearance="fill">
+                <mat-label>City</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field class="dialog-split-label-right" appearance="fill">
+                <mat-label>ZIP</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Phone Number</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>CANCEL</button>
+    <button mat-flat-button mat-dialog-close color="primary">CREATE</button>
+</mat-dialog-actions>
