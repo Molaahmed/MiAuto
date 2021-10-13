@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateGarageDialogComponent } from './garage/create-garage-dialog/create-garage-dialog.component';
 import { EditGarageDialogComponent } from './garage/edit-garage-dialog/edit-garage-dialog.component';
+import { EmployeesComponent } from './employee/employees/employees.component';
+import { CreateEmployeeDialogComponent } from './employee/create-employee-dialog/create-employee-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { EditGarageDialogComponent } from './garage/edit-garage-dialog/edit-gara
     NavbarComponent,
     CreateGarageDialogComponent,
     EditGarageDialogComponent,
+    EmployeesComponent,
+    CreateEmployeeDialogComponent,
   ],
   entryComponents: [CreateGarageDialogComponent],
   imports: [
