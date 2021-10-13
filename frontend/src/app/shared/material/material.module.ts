@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog'
+import { FormsModule } from '@angular/forms';
 
 
 const MaterialComponents = [
@@ -19,7 +20,8 @@ const MaterialComponents = [
   MatIconModule,
   MatSidenavModule,
   MatListModule,
-  MatDialogModule
+  MatDialogModule,
+  FormsModule
 ]
 
 @NgModule({

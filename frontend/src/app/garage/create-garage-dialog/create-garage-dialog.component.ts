@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-create-garage-dialog',
@@ -7,8 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateGarageDialogComponent implements OnInit {
 
-  constructor() { }
+  garage = {
+    name: '',
+    address: '',
+    city: '',
+    zip: '',
+    phonenumber: '',
+    info: 'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
+    image: ''
+  }
+  
+  constructor(public dialogRef: MatDialogRef<CreateGarageDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  create(){
+    this.dialogRef.close(this.garage);
+  }
+  
   ngOnInit(): void {
   }
 

@@ -15,15 +15,21 @@ export class RegistergarageComponent implements OnInit {
       name: 'Garage',
       address: 'Av. Mariana de Jésus 1',
       city: 'Quito',
-      zip: 170101,
+      zip: '170101',
       phonenumber: '+593 4 123 4567',
       info: 'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
       image: '../../assets/img/quito-garage.jpg'
     }
   ];
 
-  openDialog() {
-    this.dialog.open(CreateGarageDialogComponent);
+  openCreateGarageDialog() {
+    let dialogRef = this.dialog.open(CreateGarageDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog result: ' + result);
+      result.image = '../../assets/img/guayaquil-garage.jpg'
+      this.garages.push(result);
+    });
   }
 
   ngOnInit(): void {
