@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog'
 import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu'
 
 
 const MaterialComponents = [
@@ -21,7 +22,8 @@ const MaterialComponents = [
   MatSidenavModule,
   MatListModule,
   MatDialogModule,
-  FormsModule
+  FormsModule,
+  MatMenuModule
 ]
 
 @NgModule({

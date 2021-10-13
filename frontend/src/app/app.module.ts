@@ -9,6 +9,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateGarageDialogComponent } from './garage/create-garage-dialog/create-garage-dialog.component';
+import { EditGarageDialogComponent } from './garage/edit-garage-dialog/edit-garage-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CreateGarageDialogComponent } from './garage/create-garage-dialog/creat
     RegistergarageComponent,
     NavbarComponent,
     CreateGarageDialogComponent,
+    EditGarageDialogComponent,
   ],
   entryComponents: [CreateGarageDialogComponent],
   imports: [

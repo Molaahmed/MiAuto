@@ -18,6 +18,14 @@
                 <div *ngFor="let item of garages">
                     <mat-card class="garage-card">
                         <img mat-card-image [src]="item.image" alt="Quito" class="garage-image">
+                        <button class="garage-menu" mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openEditGarageDialog(item)">
+                                <span>Edit</span>
+                            </button>
+                        </mat-menu>
                         <mat-card-content>
                             <h5 class="garage-name-text">
                                 {{item.name}}

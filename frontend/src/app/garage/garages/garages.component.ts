@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'
 import { CreateGarageDialogComponent } from '../create-garage-dialog/create-garage-dialog.component';
+import { EditGarageDialogComponent } from '../edit-garage-dialog/edit-garage-dialog.component';
 
 @Component({
   selector: 'app-registergarage',
@@ -27,9 +28,37 @@ export class RegistergarageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result: ' + result);
-      result.image = '../../assets/img/guayaquil-garage.jpg'
+      result.image = '../../assets/img/guayaquil-garage.jpg';
       this.garages.push(result);
     });
+  }
+
+  openEditGarageDialog(garage: any){
+    let dialogRef = this.dialog.open(EditGarageDialogComponent, {
+      data: {
+        garage: {
+          name: garage.name,
+          address: garage.address,
+          city: garage.city,
+          zip: garage.zip,
+          phonenumber: garage.phonenumber,
+          info: garage.info,
+          image: garage.image
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        garage.name = result.name;
+        garage.address = result.address;
+        garage.city = result.city;
+        garage.zip = result.zip;
+        garage.phonenumber = result.phonenumber;
+        garage.info = result.info;
+        garage.image = result.image;
+      }
+    })
   }
 
   ngOnInit(): void {
