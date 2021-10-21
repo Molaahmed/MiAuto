@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Create New Employee</h2>
+<mat-dialog-content>
+    <form class="create-employee-form">
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput [(ngModel)]="employee.firstName" name="firstName">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput [(ngModel)]="employee.lastName" name="lastName">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="employee.email" name="email">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Garage</mat-label>
+                <input matInput [(ngModel)]="employee.garage" name="garage">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close mat-dialog-close="false">CANCEL</button>
+    <button mat-flat-button mat-dialog-close (click)="create()" color="primary">CREATE</button>
+</mat-dialog-actions>

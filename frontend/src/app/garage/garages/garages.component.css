@@ -1,0 +1,97 @@
+.aParent div {
+    float: left;
+    clear: none;
+}
+
+.container{
+    background-color: #FBFCFD;
+    width: 1800px;
+    margin-left: -240px;
+    margin-top: 50px;
+}
+
+.overview-card{
+    max-width: 1500px;
+    min-height: 800px;
+    height: fit-content;
+    margin-left: 300px;
+    overflow: hidden;
+}
+
+.card-title{
+    font-size: 30px;
+    font-weight: 550;
+    margin-bottom: 30px;
+}
+
+.search-garage-form{
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 100%;
+    min-width: 150px;
+    max-width: 465px;
+}
+
+.search-garage-full-width{
+    width: 100%;
+}
+
+.cards{
+    float: left;
+    clear: none;
+}
+
+.garage-card{
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 430px;
+    height: 350px;
+    background-color: #fafafa;
+}
+
+.garage-image{
+    height: 200px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+
+.garage-name-text{
+    font-weight: normal;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 87%;
+}
+
+.garage-city-text{
+    margin-top: -15px;
+    font-weight: 500;
+}
+
+.garage-info-text{
+    opacity: 60%;
+}
+
+.garage-details-button{
+    letter-spacing: 1px;
+}
+
+.create-new-content{
+    top:50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%, 0);
+    position: absolute;
+    text-align: center;
+}
+
+.create-title{
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: normal;
+    color: #2196F3;
+}
+
+.garage-menu{
+    float: right;
+    opacity: 55%;
+}
