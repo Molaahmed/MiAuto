@@ -11,9 +11,7 @@ export class EmployeesComponent implements OnInit {
 
   employees = [
     {name: 'Andrea', email: 'andreameresa@gmail.com', salary: '$100', garage: 'Quito'},
-    {name: 'Edison', email: 'edisonmeresa@gmail.com', salary: '$100', garage: 'Quito'},
-    {name: 'Alejandro', email: 'alejandromeresa@gmail.com', salary: '$100', garage: 'Guayaquil'},
-    {name: 'Jennifer', email: 'jennifermeresa@gmail.com', salary: '$100', garage: 'Guayaquil'}
+    {name: 'Edison', email: 'edisonmeresa@gmail.com', salary: '$100', garage: 'Quito'}
   ];
   
   displayedColumns: string[] = ['name', 'email', 'salary', 'garage'];
