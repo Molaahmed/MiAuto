@@ -24,6 +24,10 @@ export class CreateGarageDialogComponent implements OnInit {
   create(){
     this.dialogRef.close(this.garage);
   }
+
+  cancel(){
+    this.dialogRef.close();
+  }
   
   ngOnInit(): void {
   }

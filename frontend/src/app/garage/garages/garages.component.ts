@@ -27,9 +27,10 @@ export class RegistergarageComponent implements OnInit {
     let dialogRef = this.dialog.open(CreateGarageDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result: ' + result);
-      result.image = '../../assets/img/guayaquil-garage.jpg';
-      this.garages.push(result);
+      if (result != undefined){
+        result.image = '../../assets/img/guayaquil-garage.jpg'
+        this.garages.push(result);
+      }
     });
   }
 
