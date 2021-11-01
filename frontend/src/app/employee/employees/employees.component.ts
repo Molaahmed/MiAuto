@@ -1,27 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-employee-dialog.component';
+import { MatTableDataSource } from '@angular/material/table'
+
+export interface Employee {
+  id: number;
+  name: string;
+  role: string;
+}
+
+const employees: Employee[] = [
+  { id: 1, name: 'Andrea Rodriguez', role: 'Manager' },
+  { id: 2, name: 'Edison Garcia', role: 'Mechanic' },
+  { id: 3, name: 'Alejandro Sanchez', role: 'Mechanic' },
+  { id: 4, name: 'Jennifer Torres', role: 'Mechanic' }
+];
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css']
 })
+
 export class EmployeesComponent implements OnInit {
 
-  employees = [
-    { id: 1, name: 'Andrea Rodriguez', role: 'Manager' },
-    { id: 2, name: 'Edison Garcia', role: 'Mechanic' },
-    { id: 3, name: 'Alejandro Sanchez', role: 'Mechanic' },
-    { id: 4, name: 'Jennifer Torres', role: 'Mechanic' }
-  ];
-
   displayedColumns: string[] = ['id', 'name', 'role'];
-  dataSource = this.employees;
+  dataSource = new MatTableDataSource(employees);
 
   constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+      return data.id.toString().toLowerCase().includes(filter);
+    }
   }
 
   openCreateEmployeeDialog() {
@@ -30,13 +41,19 @@ export class EmployeesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
         console.log(result);
-        let employee = {
-          id: this.employees[this.employees.length - 1].id + 1,
+        let employee = <Employee>{
+          id: employees[employees.length - 1].id + 1,
           name: result.firstName + ' ' + result.lastName,
           role: result.role
         }
-        this.dataSource = this.employees.concat(employee);
+        employees.push(employee);
+        this.dataSource = new MatTableDataSource(employees);
       }
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

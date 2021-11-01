@@ -10,6 +10,10 @@
         <button mat-fab (click)="openCreateClientDialog()" color="primary" class="add-client-button">
           <mat-icon>add</mat-icon>
         </button>
+        <mat-form-field appearance="standard" class="filter-clients-field">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 1" #input>
+        </mat-form-field>
         <table mat-table [dataSource]="dataSource">
           <!-- ID Column -->
           <ng-container matColumnDef="id">

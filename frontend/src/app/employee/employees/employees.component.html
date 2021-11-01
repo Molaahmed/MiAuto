@@ -6,11 +6,14 @@
     <mat-card class="overview-card">
       <mat-card-header>
         <h1 class="card-title">Employees</h1>
-
       </mat-card-header>
       <button mat-fab (click)="openCreateEmployeeDialog()" color="primary" class="add-employee-button">
         <mat-icon>add</mat-icon>
       </button>
+      <mat-form-field appearance="standard" class="filter-employees-field">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 1" #input>
+      </mat-form-field>
       <table mat-table [dataSource]="dataSource">
         <!-- ID Column -->
         <ng-container matColumnDef="id">
