@@ -24,6 +24,12 @@
                 <span class="nav-text">Clients</span>
             </mat-list-item>
         </mat-nav-list>
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/cars']" [routerLinkActive]="['active']">
+                <mat-icon class="nav-icon" [routerLink]="['/cars']" [routerLinkActive]="['active']">directions_car</mat-icon>
+                <span class="nav-text">Cars</span>
+            </mat-list-item>
+        </mat-nav-list>
         <mat-divider class="nav-divider"></mat-divider>
         <h5 class="nav-sub-header">Settings</h5>
         <mat-nav-list>
