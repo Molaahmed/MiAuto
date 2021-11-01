@@ -18,6 +18,12 @@
                 <span class="nav-text">Employees</span>
             </mat-list-item>
         </mat-nav-list>
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/clients']" [routerLinkActive]="['active']">
+                <mat-icon class="nav-icon" [routerLink]="['/clients']" [routerLinkActive]="['active']">people</mat-icon>
+                <span class="nav-text">Clients</span>
+            </mat-list-item>
+        </mat-nav-list>
         <mat-divider class="nav-divider"></mat-divider>
         <h5 class="nav-sub-header">Settings</h5>
         <mat-nav-list>

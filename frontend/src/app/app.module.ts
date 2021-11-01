@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { EmployeesComponent } from './employee/employees/employees.component';
 import { CreateEmployeeDialogComponent } from './employee/create-employee-dialog/create-employee-dialog.component';
+import { ClientsComponent } from './client/clients/clients.component';
+import { CreateClientDialogComponent } from './client/create-client-dialog/create-client-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { CreateEmployeeDialogComponent } from './employee/create-employee-dialog
     NavbarComponent,
     EmployeesComponent,
     CreateEmployeeDialogComponent,
+    ClientsComponent,
+    CreateClientDialogComponent,
   ],
   entryComponents: [],
   imports: [
