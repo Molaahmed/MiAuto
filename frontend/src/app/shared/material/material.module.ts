@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
+  MatCheckboxModule,
   MatCardModule,
   MatDividerModule,
   MatButtonModule,
@@ -38,4 +40,5 @@ const MaterialComponents = [
   imports: [MaterialComponents],
   exports: [MaterialComponents]
 })
+
 export class MaterialModule { }

@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
+
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+
+import { LoginComponent } from './login/login.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
 import { CreateEmployeeDialogComponent } from './employee/create-employee-dialog/create-employee-dialog.component';
 import { ClientsComponent } from './client/clients/clients.component';
@@ -18,12 +21,13 @@ import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dia
   declarations: [
     AppComponent,
     NavbarComponent,
+    LoginComponent,
     EmployeesComponent,
     CreateEmployeeDialogComponent,
     ClientsComponent,
     CreateClientDialogComponent,
     CarsComponent,
-    CreateCarDialogComponent,
+    CreateCarDialogComponent
   ],
   entryComponents: [],
   imports: [

@@ -1,0 +1,70 @@
+.container{
+    background-image: url("../../assets/img/garage.jpg");
+    background-size: 150vh 100%;
+    background-repeat: no-repeat;
+    background-position: 600px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: overlay;
+}
+
+.content{
+    margin: auto;
+    position: fixed;
+    top: 10%;
+}
+
+.login-headers{
+    margin-left: 100px;
+}
+
+.login-sub-text{
+    margin-top: -40px;
+    font-size: 15px;
+}
+
+.login-form {
+    margin-left: 100px;
+    margin-top: 40px;
+    min-width: 150px;
+    max-width: 400px;
+    width: 100%;
+}
+  
+.login-full-width {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.password-sub-text{
+    margin-top: -30px;
+    margin-left: 15px;
+    font-size: 14px;
+    opacity: 75%;
+}
+
+.login-buttons{
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.login-button{
+    margin-top: 20px;
+}
+
+.forgot-password-button{
+    margin-top: 15px;
+}
+
+.register{
+    margin-left: 100px;
+    margin-top: 100px;
+}
+
+.no-account{
+    display: inline-block;
+}
+
+.sign-up-button{
+    display: inline-block;
+}
