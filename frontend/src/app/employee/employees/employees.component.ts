@@ -31,7 +31,7 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
-      return data.id.toString().toLowerCase().includes(filter);
+      return data.id.toString().toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter);
     }
   }
 
