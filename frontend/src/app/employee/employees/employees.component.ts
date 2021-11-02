@@ -10,33 +10,33 @@ import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-
 export class EmployeesComponent implements OnInit {
 
   employees = [
-    {name: 'Andrea', email: 'andreameresa@gmail.com', salary: '$100', garage: 'Quito'},
-    {name: 'Edison', email: 'edisonmeresa@gmail.com', salary: '$100', garage: 'Quito'},
-    {name: 'Alejandro', email: 'alejandromeresa@gmail.com', salary: '$100', garage: 'Guayaquil'},
-    {name: 'Jennifer', email: 'jennifermeresa@gmail.com', salary: '$100', garage: 'Guayaquil'}
+    { id: 1, name: 'Andrea Rodriguez', role: 'Manager' },
+    { id: 2, name: 'Edison Garcia', role: 'Mechanic' },
+    { id: 3, name: 'Alejandro Sanchez', role: 'Mechanic' },
+    { id: 4, name: 'Jennifer Torres', role: 'Mechanic' }
   ];
-  
-  displayedColumns: string[] = ['name', 'email', 'salary', 'garage'];
+
+  displayedColumns: string[] = ['id', 'name', 'role'];
   dataSource = this.employees;
-  
+
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  openCreateEmployeeDialog(){
+  openCreateEmployeeDialog() {
     let dialogRef = this.dialog.open(CreateEmployeeDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      let employee = {
-        name: result.firstName,
-        email: result.email,
-        salary: '0$',
-        garage: result.garage
+      if (result != undefined) {
+        console.log(result);
+        let employee = {
+          id: this.employees[this.employees.length - 1].id + 1,
+          name: result.firstName + ' ' + result.lastName,
+          role: result.role
+        }
+        this.dataSource = this.employees.concat(employee);
       }
-      this.dataSource = this.employees.concat(employee);
     })
   }
-
 }

@@ -2,26 +2,25 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
-  selector: 'app-create-employee-dialog',
-  templateUrl: './create-employee-dialog.component.html',
-  styleUrls: ['./create-employee-dialog.component.css']
+  selector: 'app-create-client-dialog',
+  templateUrl: './create-client-dialog.component.html',
+  styleUrls: ['./create-client-dialog.component.css']
 })
-export class CreateEmployeeDialogComponent implements OnInit {
-  employee = {
+export class CreateClientDialogComponent implements OnInit {
+  client = {
     firstName: '',
     lastName: '',
     dateOfBirth: new Date,
     address: '',
     phoneNumber: '',
-    email: '',
-    role: ''
+    email: ''
   }
 
-  constructor(public dialogRef: MatDialogRef<CreateEmployeeDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<CreateClientDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   create() {
-    this.dialogRef.close(this.employee);
+    this.dialogRef.close(this.client);
   }
 
   cancel() {
@@ -30,5 +29,4 @@ export class CreateEmployeeDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
