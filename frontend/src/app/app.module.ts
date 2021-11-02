@@ -11,6 +11,8 @@ import { EmployeesComponent } from './employee/employees/employees.component';
 import { CreateEmployeeDialogComponent } from './employee/create-employee-dialog/create-employee-dialog.component';
 import { ClientsComponent } from './client/clients/clients.component';
 import { CreateClientDialogComponent } from './client/create-client-dialog/create-client-dialog.component';
+import { CarsComponent } from './car/cars/cars.component';
+import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { CreateClientDialogComponent } from './client/create-client-dialog/creat
     CreateEmployeeDialogComponent,
     ClientsComponent,
     CreateClientDialogComponent,
+    CarsComponent,
+    CreateCarDialogComponent,
   ],
   entryComponents: [],
   imports: [
