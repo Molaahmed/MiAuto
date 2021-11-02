@@ -1,11 +1,25 @@
-.login{
+.container{
+    background-image: url("../../assets/img/garage.jpg");
+    background-size: 150vh 100%;
+    background-repeat: no-repeat;
+    background-position: 600px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: overlay;
+}
+
+.content{
+    margin: auto;
+    position: fixed;
+    top: 10%;
+}
+
+.login-headers{
     margin-left: 100px;
-    font-size: 40px;
 }
 
 .login-sub-text{
-    margin-left: 100px;
-    margin-top: 20px;
+    margin-top: -40px;
     font-size: 15px;
 }
 
@@ -25,6 +39,8 @@
 .password-sub-text{
     margin-top: -30px;
     margin-left: 15px;
+    font-size: 14px;
+    opacity: 75%;
 }
 
 .login-buttons{
@@ -47,25 +63,8 @@
 
 .no-account{
     display: inline-block;
-    font-weight: bold;
 }
 
 .sign-up-button{
     display: inline-block;
-}
-
-.container{
-    background-image: url("../../assets/img/garage.jpg");
-    background-size: 150vh 100%;
-    background-repeat: no-repeat;
-    background-position: 600px;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.5);
-    background-blend-mode: overlay;
-}
-
-.content{
-    margin: auto;
-    position: fixed;
-    top: 10%;
 }
