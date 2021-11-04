@@ -1,7 +1,5 @@
 .container{
-    font-family: 'Roboto', sans-serif;
     background-color: white;
-    width: 300px;
 
     border-right-style: solid;
     border-right-width: thin;
@@ -11,27 +9,34 @@
 }
 
 .nav-profile-picture{
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-bottom: 30px;
-    width: 60px;
+    width: 30px;
     border-radius: 50%;
 }
 
 .nav-header{
     margin-left: 15px;
+    margin-top: 20px;
 }
 
 .nav-header-text{
+    position: absolute;
+    margin-top: -35px;
+    margin-left: 50px;
     font-weight: 500;
     font-size: 25px;
 }
 
 .nav-header-icon{
     position: absolute;
-    margin-top: 5px;
-    margin-left: 175px;
+    margin-top: -25px;
+    margin-left: 250px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.nav-menu-icon{
     opacity: 65%;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .nav-icon{
@@ -55,10 +60,11 @@
 }
 
 .nav-sub-header{
-    font-weight: bold;
-    opacity: 35%;
+    font-weight: 500;
     margin-left: 15px;
+    margin-top: 10px;
     margin-bottom: 2.5px;
+    color: rgba(180, 180, 180, 1);
 }
 
 .mat-list-item.active{
