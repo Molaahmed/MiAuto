@@ -1,11 +1,5 @@
 .container{
     background-color: white;
-
-    border-right-style: solid;
-    border-right-width: thin;
-    border-right-color: #e5e5e5;
-
-    height: 100vh;
 }
 
 .nav-profile-picture{
@@ -19,16 +13,14 @@
 }
 
 .nav-header-text{
-    position: absolute;
-    margin-top: -35px;
+    margin-top: -37.5px;
     margin-left: 50px;
     font-weight: 500;
     font-size: 25px;
 }
 
 .nav-header-icon{
-    position: absolute;
-    margin-top: -25px;
+    margin-top: -95px;
     margin-left: 250px;
     color: rgba(0, 0, 0, 0.54);
 }

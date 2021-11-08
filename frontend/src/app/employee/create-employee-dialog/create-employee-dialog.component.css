@@ -1,6 +1,14 @@
+.create-employee-dialog{
+    width: 500px;
+}
+
+@media (max-width: 700px) {
+    .create-employee-dialog {
+        width: 200px;
+    }
+}
+
 .create-employee-form{
-    min-width: 500px;
-    max-width: 1000px;
     width: 100%;
 }
 

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { onSideNavChange, animateText } from 'src/app/animations/animations';
 import { SidenavService } from 'src/app/services/navbar.service';
 
@@ -13,9 +15,25 @@ export class NavbarComponent implements OnInit {
   public sideNavState: boolean = true;
   public linkText: boolean = true;
 
-  constructor(private _sidenavService: SidenavService) { }
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+
+  constructor(private _sidenavService: SidenavService, private observer: BreakpointObserver) {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
+      if (res.matches && this.sideNavState == true) {
+        this.onSidenavToggle();
+      }
+      else if (!res.matches && this.sideNavState == false) {
+        this.onSidenavToggle();
+      }
+    });
   }
 
   onSidenavToggle() {
