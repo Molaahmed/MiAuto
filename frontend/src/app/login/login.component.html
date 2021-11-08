@@ -4,32 +4,44 @@
             <h1 class="mat-display-2">Login</h1>
             <h2 class="mat-subheading-1 login-sub-text">Login to access your account</h2>
         </div>
-    
-        <form class="login-form">
+
+        <form class="login-form" *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+            novalidate>
             <mat-form-field class="login-full-width" appearance="fill">
                 <mat-label>Email Address</mat-label>
-                <input matInput>
+                <input type="email" name="email" [(ngModel)]="form.email" required #email="ngModel" matInput>
             </mat-form-field>
-    
+
             <mat-form-field class="login-full-width" appearance="fill">
                 <mat-label>Password</mat-label>
-                <input matInput>
+                <input type="password" name="password" [(ngModel)]="form.password" required #password="ngModel"
+                    matInput>
             </mat-form-field>
             <h5 class="mat-subheading-1 password-sub-text">Password must contain at least 6 characters</h5>
-        </form>
-    
-        <div class="login-buttons">
+
             <div>
                 <mat-checkbox>Remember me</mat-checkbox>
             </div>
             <div class="login-button">
-                <button mat-flat-button color="primary">LOGIN</button>
+                <button type="submit" mat-flat-button color="primary" >LOGIN</button>
             </div>
             <div class="forgot-password-button">
                 <button mat-button color="primary">FORGOT PASSWORD?</button>
             </div>
-        </div>
-    
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                Login failed: {{ errorMessage }}
+            </div>
+        </form>
+
+        <!-- <div class="login-buttons">
+            <div class="login-button">
+                <button mat-flat-button color="primary" onclick="onSubmit()">LOGIN</button>
+            </div>
+            <div class="forgot-password-button">
+                <button mat-button color="primary">FORGOT PASSWORD?</button>
+            </div>
+        </div> -->
+
         <div class="register">
             <div class="no-account">
                 <h4 class="mat-subheading-1">Don't have an account?</h4>
