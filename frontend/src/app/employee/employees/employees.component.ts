@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { onMainContentChange } from 'src/app/animations/animations';
+import { SidenavService } from 'src/app/services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-employee-dialog.component';
-import { MatTableDataSource } from '@angular/material/table'
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface Employee {
   id: number;
@@ -19,15 +21,22 @@ const employees: Employee[] = [
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.css']
+  styleUrls: ['./employees.component.css'],
+  animations: [onMainContentChange]
 })
 
 export class EmployeesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'role'];
   dataSource = new MatTableDataSource(employees);
+  public sideNavState: boolean = true;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private _sidenavService: SidenavService) {
+    this._sidenavService.sideNavState$.subscribe( res => {
+      console.log(res);
+      this.sideNavState = res;
+    });
+  }
 
   ngOnInit() {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {

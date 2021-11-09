@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { onMainContentChange } from 'src/app/animations/animations';
+import { SidenavService } from 'src/app/services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table'
 import { CreateCarDialogComponent } from '../create-car-dialog/create-car-dialog.component';
@@ -19,19 +21,26 @@ const cars: Car[] = [
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
-  styleUrls: ['./cars.component.css']
+  styleUrls: ['./cars.component.css'],
+  animations: [onMainContentChange]
 })
 export class CarsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'vin', 'owner'];
   dataSource = new MatTableDataSource(cars);
-  
-  constructor(public dialog: MatDialog) { }
+  public sideNavState: boolean = true;
+
+  constructor(public dialog: MatDialog, private _sidenavService: SidenavService) {
+    this._sidenavService.sideNavState$.subscribe(res => {
+      console.log(res);
+      this.sideNavState = res;
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  openCreateCarDialog(){
+  openCreateCarDialog() {
     let dialogRef = this.dialog.open(CreateCarDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -47,5 +56,4 @@ export class CarsComponent implements OnInit {
       }
     })
   }
-
 }

@@ -1,47 +1,53 @@
-<div class="container">
-    <div>
+<div>
+  <mat-sidenav-container class="navbar-container">
+    <mat-sidenav #leftSidenav mode="side" opened>
       <app-navbar></app-navbar>
-    </div>
-    <div class="clients-container">
-      <mat-card class="overview-card">
-        <mat-card-header>
-          <h1 class="card-title">Clients</h1>
-        </mat-card-header>
-        <button mat-fab (click)="openCreateClientDialog()" color="primary" class="add-client-button">
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-form-field appearance="standard" class="filter-clients-field">
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 1 or Santiago" #input>
-        </mat-form-field>
-        <table mat-table [dataSource]="dataSource">
-          <!-- ID Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
-            <td mat-cell *matCellDef="let client"> {{client.id}} </td>
-          </ng-container>
-  
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let client"> {{client.name}} </td>
-          </ng-container>
-  
-          <!-- PhoneNumber Column -->
-          <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-            <td mat-cell *matCellDef="let client"> {{client.phoneNumber}} </td>
-          </ng-container>
+    </mat-sidenav>
+    <mat-sidenav-content [@onMainContentChange]="sideNavState ? 'open' : 'close'">
+      <div class="clients-container">
+        <mat-card class="overview-card">
+          <mat-card-header>
+            <h1 class="card-title">Clients</h1>
+          </mat-card-header>
+          <button mat-fab (click)="openCreateClientDialog()" color="primary" class="add-client-button">
+            <mat-icon>add</mat-icon>
+          </button>
+          <mat-form-field appearance="fill" class="filter-clients-field">
+            <mat-label class="filter-clients-field-label">Search</mat-label>
+            <mat-icon matPrefix class="filter-clients-field-icon">search</mat-icon>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 1 or Santiago" #input
+              class="filter-clients-field-input">
+          </mat-form-field>
+          <table mat-table [dataSource]="dataSource">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let client"> {{client.id}} </td>
+            </ng-container>
 
-          <!-- Car(s) Column -->
-          <ng-container matColumnDef="car">
-            <th mat-header-cell *matHeaderCellDef> Car(s) </th>
-            <td mat-cell *matCellDef="let client"> {{client.car}} </td>
-          </ng-container>
-  
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card>
-    </div>
-  </div>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let client"> {{client.name}} </td>
+            </ng-container>
+
+            <!-- PhoneNumber Column -->
+            <ng-container matColumnDef="phoneNumber">
+              <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+              <td mat-cell *matCellDef="let client"> {{client.phoneNumber}} </td>
+            </ng-container>
+
+            <!-- Car(s) Column -->
+            <ng-container matColumnDef="car">
+              <th mat-header-cell *matHeaderCellDef> Car(s) </th>
+              <td mat-cell *matCellDef="let client"> {{client.car}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

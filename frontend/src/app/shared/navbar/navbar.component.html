@@ -1,48 +1,52 @@
-<mat-sidenav-container class="container">
-    <mat-sidenav>Start</mat-sidenav>
-    <mat-sidenav-content>
+<div class="container" [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+    <div class="nav-menu-icon">
+        <button mat-icon-button (click)="onSidenavToggle()">
+          <mat-icon *ngIf="sideNavState">close</mat-icon>
+          <mat-icon *ngIf="!sideNavState">menu</mat-icon>
+        </button>
+      </div>
+    <div class="nav-header">
         <img src="../../assets/img/img_avatar.png" class="nav-profile-picture" alt="Avatar">
-        <div class="nav-header">
-            <span class="nav-header-text">Admin</span> <mat-icon class="nav-header-icon">arrow_drop_down</mat-icon>
-        </div>
-        <mat-divider class="nav-divider"></mat-divider>
-        <mat-nav-list>
-            <mat-list-item [routerLink]="['/dashboard']" [routerLinkActive]="['active']">
-                <mat-icon class="nav-icon" [routerLink]="['/dashboard']" [routerLinkActive]="['active']">dashboard</mat-icon>
-                <span class="nav-text">Dashboard</span>
-            </mat-list-item>
-        </mat-nav-list>
-        <mat-nav-list>
-            <mat-list-item [routerLink]="['/employees']" [routerLinkActive]="['active']">
-                <mat-icon class="nav-icon" [routerLink]="['/employees']" [routerLinkActive]="['active']">people</mat-icon>
-                <span class="nav-text">Employees</span>
-            </mat-list-item>
-        </mat-nav-list>
-        <mat-nav-list>
-            <mat-list-item [routerLink]="['/clients']" [routerLinkActive]="['active']">
-                <mat-icon class="nav-icon" [routerLink]="['/clients']" [routerLinkActive]="['active']">people</mat-icon>
-                <span class="nav-text">Clients</span>
-            </mat-list-item>
-        </mat-nav-list>
-        <mat-nav-list>
-            <mat-list-item [routerLink]="['/cars']" [routerLinkActive]="['active']">
-                <mat-icon class="nav-icon" [routerLink]="['/cars']" [routerLinkActive]="['active']">directions_car</mat-icon>
-                <span class="nav-text">Cars</span>
-            </mat-list-item>
-        </mat-nav-list>
-        <mat-divider class="nav-divider"></mat-divider>
-        <h5 class="nav-sub-header">Settings</h5>
-        <mat-nav-list>
-            <mat-list-item>
-                <mat-icon class="nav-icon">settings</mat-icon>
-                <span class="nav-text">Main Settings</span>
-            </mat-list-item>
-        </mat-nav-list>
-        <mat-nav-list>
-            <mat-list-item>
-                <mat-icon class="nav-icon">notifications</mat-icon>
-                <span class="nav-text">Notifications</span>
-            </mat-list-item>
-        </mat-nav-list>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        <span class="mat-display-1 nav-header-text" [@animateText]="linkText ? 'show' : 'hide'">Admin</span>
+        <mat-icon class="nav-header-icon" [@animateText]="linkText ? 'show' : 'hide'">arrow_drop_down</mat-icon>
+    </div>
+    <mat-divider class="nav-divider"></mat-divider>
+    <mat-nav-list>
+        <mat-list-item [routerLink]="['/dashboard']" [routerLinkActive]="['active']">
+            <mat-icon class="nav-icon" [routerLink]="['/dashboard']" [routerLinkActive]="['active']">dashboard</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Dashboard</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+        <mat-list-item [routerLink]="['/employees']" [routerLinkActive]="['active']">
+            <mat-icon class="nav-icon" [routerLink]="['/employees']" [routerLinkActive]="['active']">people</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Employees</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+        <mat-list-item [routerLink]="['/clients']" [routerLinkActive]="['active']">
+            <mat-icon class="nav-icon" [routerLink]="['/clients']" [routerLinkActive]="['active']">people</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Clients</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+        <mat-list-item [routerLink]="['/cars']" [routerLinkActive]="['active']">
+            <mat-icon class="nav-icon" [routerLink]="['/cars']" [routerLinkActive]="['active']">directions_car</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Cars</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-divider class="nav-divider"></mat-divider>
+    <h5 class="mat-subheading-1 nav-sub-header" [@animateText]="linkText ? 'show' : 'hide'">Settings</h5>
+    <mat-nav-list>
+        <mat-list-item>
+            <mat-icon class="nav-icon">settings</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Main Settings</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+        <mat-list-item>
+            <mat-icon class="nav-icon">notifications</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Notifications</span>
+        </mat-list-item>
+    </mat-nav-list>
+</div>
