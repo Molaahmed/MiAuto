@@ -5,7 +5,7 @@
             <h2 class="mat-subheading-1 login-sub-text">Login to access your account</h2>
         </div>
 
-        <form class="login-form" *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+        <form class="login-form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
             novalidate>
             <mat-form-field class="login-full-width" appearance="fill">
                 <mat-label>Email Address</mat-label>
@@ -28,7 +28,7 @@
             <div class="forgot-password-button">
                 <button mat-button color="primary">FORGOT PASSWORD?</button>
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && error">
                 Login failed: {{ errorMessage }}
             </div>
         </form>

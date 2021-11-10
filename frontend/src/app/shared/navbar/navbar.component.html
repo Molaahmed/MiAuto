@@ -44,5 +44,11 @@
                 <span class="nav-text">Notifications</span>
             </mat-list-item>
         </mat-nav-list>
+        <mat-nav-list>
+            <mat-list-item (click)="logout();">
+                <mat-icon class="nav-icon red">logout</mat-icon>
+                <span class="nav-text red">Sign out</span>
+            </mat-list-item>
+        </mat-nav-list>
     </mat-sidenav-content>
 </mat-sidenav-container>
