@@ -19,6 +19,8 @@ import { CreateClientDialogComponent } from './client/create-client-dialog/creat
 import { CarsComponent } from './car/cars/cars.component';
 import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dialog.component';
 
+import { SidenavService } from './services/navbar.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,7 @@ import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dia
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ SidenavService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

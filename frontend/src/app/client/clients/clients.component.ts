@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { onMainContentChange } from 'src/app/animations/animations';
+import { SidenavService } from 'src/app/services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateClientDialogComponent } from '../create-client-dialog/create-client-dialog.component';
 import { MatTableDataSource } from '@angular/material/table'
@@ -20,14 +22,21 @@ const clients: Client[] = [
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  styleUrls: ['./clients.component.css'],
+  animations: [onMainContentChange]
 })
 export class ClientsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'phoneNumber', 'car'];
   dataSource = new MatTableDataSource(clients);
+  public sideNavState: boolean = true;
   
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private _sidenavService: SidenavService) {
+    this._sidenavService.sideNavState$.subscribe( res => {
+      console.log(res);
+      this.sideNavState = res;
+    });
+  }
 
   ngOnInit() {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {

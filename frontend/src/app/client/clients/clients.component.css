@@ -1,21 +1,20 @@
-.container div {
-    float: left;
-    clear: none;
+.navbar-container{
+    height: 100vh;
 }
 
 .clients-container{
     background-color: #FBFCFD;
-    width: 1800px;
-    margin-left: -240px;
-    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    padding: 40px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .overview-card{
-    max-width: 1500px;
-    min-height: 800px;
-    height: fit-content;
-    margin-left: 300px;
-    overflow: hidden;
+    width: 100%;
 }
 
 .card-title{
@@ -30,9 +29,32 @@ table {
 
 .add-client-button{
     float: right;
-    margin-top: -6%;
+    margin-top: -80px;
 }
 
 .filter-clients-field{
-    margin-left: 2%;
+    margin-left: 35px;
+}
+
+.filter-clients-field-label{
+    margin-left: 10px;
+}
+
+.filter-clients-field-icon{
+    opacity: 65%;
+}
+
+.filter-clients-field-input{
+    margin-left: 8px;
+}
+
+@media (max-width: 430px) {
+    .card-title{
+        font-size: 25px;
+        margin-left: -20px;
+    }
+
+    .filter-clients-field{
+        margin-left: 15px;
+    }
 }
