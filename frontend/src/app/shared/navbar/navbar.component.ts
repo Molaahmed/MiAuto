@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -33,6 +32,7 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['/']);
       }
     );
+  }
 
   ngAfterViewInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
