@@ -4,6 +4,8 @@ import { SidenavService } from 'src/app/services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-employee-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserService } from 'src/app/services/user.service';
+import { ContentObserver } from '@angular/cdk/observers';
 
 export interface Employee {
   id: number;
@@ -31,7 +33,7 @@ export class EmployeesComponent implements OnInit {
   dataSource = new MatTableDataSource(employees);
   public sideNavState: boolean = true;
 
-  constructor(public dialog: MatDialog, private _sidenavService: SidenavService) {
+  constructor(public dialog: MatDialog, private _sidenavService: SidenavService, private userService: UserService) {
     this._sidenavService.sideNavState$.subscribe( res => {
       console.log(res);
       this.sideNavState = res;
@@ -42,6 +44,12 @@ export class EmployeesComponent implements OnInit {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       return data.id.toString().toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter);
     }
+  }
+
+  getAuthenticatedUser() {
+    this.userService.user().subscribe(data => {
+      console.log('user : ' , data)
+    })
   }
 
   openCreateEmployeeDialog() {

@@ -1,8 +1,12 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { onSideNavChange, animateText } from 'src/app/animations/animations';
 import { SidenavService } from 'src/app/services/navbar.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -12,18 +16,23 @@ import { SidenavService } from 'src/app/services/navbar.service';
 })
 export class NavbarComponent implements OnInit {
 
+  constructor(private authService: AuthService, private router: Router, private _sidenavService: SidenavService, private observer: BreakpointObserver) { }
+
   public sideNavState: boolean = true;
   public linkText: boolean = true;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private _sidenavService: SidenavService, private observer: BreakpointObserver) {
-
-  }
-
   ngOnInit(): void {
   }
+
+  logout(): void{
+    this.authService.logout().subscribe(
+      () => {
+        this.router.navigate(['/']);
+      }
+    );
 
   ngAfterViewInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
@@ -44,5 +53,4 @@ export class NavbarComponent implements OnInit {
     }, 200);
     this._sidenavService.sideNavState$.next(this.sideNavState);
   }
-
 }
