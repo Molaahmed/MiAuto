@@ -1,0 +1,17 @@
+.edit-employee-dialog{
+    width: 500px;
+}
+
+.edit-employee-form{
+    width: 100%;
+}
+
+.dialog-full-label{
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .edit-employee-dialog {
+        width: 200px;
+    }
+}
