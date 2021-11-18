@@ -48,6 +48,12 @@ table {
     margin-left: 8px;
 }
 
+.table-edit-column{
+    text-align: right;
+    justify-content: flex-end;
+    opacity: 55%;
+}
+
 @media (max-width: 430px) {
     .card-title{
         font-size: 25px;

@@ -28,7 +28,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let client"> {{client.name}} </td>
+              <td mat-cell *matCellDef="let client"> {{client.firstName}} {{client.lastName}} </td>
             </ng-container>
 
             <!-- PhoneNumber Column -->
@@ -41,6 +41,16 @@
             <ng-container matColumnDef="car">
               <th mat-header-cell *matHeaderCellDef> Car(s) </th>
               <td mat-cell *matCellDef="let client"> {{client.car}} </td>
+            </ng-container>
+
+            <!-- Edit Column -->
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let client" class="table-edit-column">
+                <button mat-icon-button (click)="openEditClientDialog(client)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -21,6 +21,7 @@ import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dia
 
 import { SidenavService } from './services/navbar.service';
 import { EditEmployeeDialogComponent } from './employee/edit-employee-dialog/edit-employee-dialog.component';
+import { EditClientDialogComponent } from './client/edit-client-dialog/edit-client-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EditEmployeeDialogComponent } from './employee/edit-employee-dialog/edi
     CreateClientDialogComponent,
     CarsComponent,
     CreateCarDialogComponent,
-    EditEmployeeDialogComponent
+    EditEmployeeDialogComponent,
+    EditClientDialogComponent
   ],
   entryComponents: [],
   imports: [
