@@ -71,6 +71,23 @@ export class AppointmentsComponent implements OnInit {
   }
 
   openCreateAppointmentDialog() {
+    let dialogRef = this.dialog.open(CreateAppointmentDialogComponent);
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        console.log("result is not undefined");
+        let appointment = <Appointment> {
+          id: appointments[appointments.length - 1].id + 1,
+          client: result.client,
+          employee: result.employee,
+          vin: result.vin,
+          date: result.date,
+          startingTime: result.startingTime,
+          endingTime: result.endingTime
+        };
+        appointments.push(appointment);
+        this.dataSource = new MatTableDataSource(appointments);
+      }
+    })
   }
 }
