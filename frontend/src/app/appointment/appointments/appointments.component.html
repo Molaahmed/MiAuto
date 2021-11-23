@@ -1,0 +1,71 @@
+<div>
+    <mat-sidenav-container class="navbar-container">
+        <mat-sidenav #leftSidenav mode="side" opened>
+            <app-navbar></app-navbar>
+        </mat-sidenav>
+        <mat-sidenav-content [@onMainContentChange]="sideNavState ? 'open' : 'close'">
+            <div class="appointments-container">
+                <mat-card class="overview-card">
+                    <mat-card-header>
+                        <h1 class="card-title">Appointments</h1>
+                    </mat-card-header>
+                    <button mat-fab (click)="openCreateAppointmentDialog()" color="primary" class="add-appointment-button">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <mat-form-field appearance="fill" [formGroup]="filterForm" class="filter-appointments-field">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Start date" formControlName="fromDate">
+                            <input matEndDate placeholder="End date" formControlName="toDate" (dateChange)="dateRangeChange()">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker-toggle matSuffix (click)="clearStartDate()">
+                            <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="dataSource">
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> ID </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.id}} </td>
+                        </ng-container>
+
+                        <!-- Client Column -->
+                        <ng-container matColumnDef="client">
+                            <th mat-header-cell *matHeaderCellDef> Client </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.client}} </td>
+                        </ng-container>
+
+                        <!-- Employee Column -->
+                        <ng-container matColumnDef="employee">
+                            <th mat-header-cell *matHeaderCellDef> Employee </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.employee}} </td>
+                        </ng-container>
+
+                        <!-- VIN Column -->
+                        <ng-container matColumnDef="vin">
+                            <th mat-header-cell *matHeaderCellDef> VIN </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.vin}} </td>
+                        </ng-container>
+
+                        <!-- Date Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef> Date </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.date | date: 'dd/MM/yyyy'}} </td>
+                        </ng-container>
+
+                        <!-- Time Column -->
+                        <ng-container matColumnDef="time">
+                            <th mat-header-cell *matHeaderCellDef> Time </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.startingTime}} - {{appointment.endingTime}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-card>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
