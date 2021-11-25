@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { CreateAppointmentDialogComponent } from '../create-appointment-dialog/create-appointment-dialog.component';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
+import { EditAppointmentDialogComponent } from '../edit-appointment-dialog/edit-appointment-dialog.component';
 
 export interface Appointment {
   id: number;
@@ -32,7 +33,7 @@ const appointments: Appointment[] = [
 })
 export class AppointmentsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'client', 'employee', 'vin', 'date', 'time'];
+  displayedColumns: string[] = ['id', 'client', 'employee', 'vin', 'date', 'time', 'edit'];
   dataSource = new MatTableDataSource(appointments);
   public sideNavState: boolean = true;
 
@@ -89,5 +90,33 @@ export class AppointmentsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(appointments);
       }
     })
+  }
+
+  openEditAppointmentDialog(appointment: Appointment) {
+    let dialogRef = this.dialog.open(EditAppointmentDialogComponent, {
+      data: {
+        appointment: {
+          id: appointment.id,
+          client: appointment.client,
+          employee: appointment.employee,
+          vin: appointment.vin,
+          date: appointment.date,
+          startingTime: appointment.startingTime,
+          endingTime: appointment.endingTime
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        appointment.id = result.id;
+        appointment.client = result.client;
+        appointment.employee = result.employee;
+        appointment.vin = result.vin;
+        appointment.date = result.date;
+        appointment.startingTime = result.startingTime;
+        appointment.endingTime = result.endingTime;
+      }
+    });
   }
 }

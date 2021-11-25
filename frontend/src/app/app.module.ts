@@ -23,6 +23,7 @@ import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dia
 import { SidenavService } from './services/navbar.service';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { CreateAppointmentDialogComponent } from './appointment/create-appointment-dialog/create-appointment-dialog.component';
+import { EditAppointmentDialogComponent } from './appointment/edit-appointment-dialog/edit-appointment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CreateAppointmentDialogComponent } from './appointment/create-appointme
     CarsComponent,
     CreateCarDialogComponent,
     AppointmentsComponent,
-    CreateAppointmentDialogComponent
+    CreateAppointmentDialogComponent,
+    EditAppointmentDialogComponent
   ],
   entryComponents: [],
   imports: [
