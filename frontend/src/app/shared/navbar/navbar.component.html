@@ -35,6 +35,12 @@
             <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Cars</span>
         </mat-list-item>
     </mat-nav-list>
+    <mat-nav-list>
+        <mat-list-item [routerLink]="['/appointments']" [routerLinkActive]="['active']">
+            <mat-icon class="nav-icon" [routerLink]="['/appointments']" [routerLinkActive]="['active']">date_range</mat-icon>
+            <span class="nav-text" [@animateText]="linkText ? 'show' : 'hide'">Appointments</span>
+        </mat-list-item>
+    </mat-nav-list>
     <mat-divider class="nav-divider"></mat-divider>
     <h5 class="mat-subheading-1 nav-sub-header" [@animateText]="linkText ? 'show' : 'hide'">Settings</h5>
     <mat-nav-list>

@@ -1,0 +1,27 @@
+.edit-appointment-dialog{
+    width: 500px;
+}
+
+.edit-appointment-form{
+    width: 100%;
+}
+
+.dialog-full-label{
+    width: 100%;
+}
+
+.dialog-split-label-left{
+    float: left;
+    width: 47.5%;
+}
+
+.dialog-split-label-right{
+    float: right;
+    width: 47.5%;
+}
+
+@media (max-width: 700px) {
+    .edit-appointment-dialog {
+        width: 200px;
+    }
+}
