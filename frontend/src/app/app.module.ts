@@ -41,7 +41,7 @@ import { EditAppointmentDialogComponent } from './appointment/edit-appointment-d
     CarsComponent,
     CreateCarDialogComponent,
     EditEmployeeDialogComponent,
-    EditClientDialogComponent
+    EditClientDialogComponent,
     AppointmentsComponent,
     CreateAppointmentDialogComponent,
     EditAppointmentDialogComponent
