@@ -10,6 +10,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { DatePipe } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -20,6 +21,9 @@ import { CarsComponent } from './car/cars/cars.component';
 import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dialog.component';
 
 import { SidenavService } from './services/navbar.service';
+import { AppointmentsComponent } from './appointment/appointments/appointments.component';
+import { CreateAppointmentDialogComponent } from './appointment/create-appointment-dialog/create-appointment-dialog.component';
+import { EditAppointmentDialogComponent } from './appointment/edit-appointment-dialog/edit-appointment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { SidenavService } from './services/navbar.service';
     ClientsComponent,
     CreateClientDialogComponent,
     CarsComponent,
-    CreateCarDialogComponent
+    CreateCarDialogComponent,
+    AppointmentsComponent,
+    CreateAppointmentDialogComponent,
+    EditAppointmentDialogComponent
   ],
   entryComponents: [],
   imports: [
@@ -42,7 +49,7 @@ import { SidenavService } from './services/navbar.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ SidenavService ],
+  providers: [ SidenavService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

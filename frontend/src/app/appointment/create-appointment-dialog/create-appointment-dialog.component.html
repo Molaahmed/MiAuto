@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Create New Appointment</h2>
+<mat-dialog-content>
+    <form class="create-appointment-form">
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Client</mat-label>
+                <mat-select [(ngModel)]="appointment.client" name="client">
+                    <mat-option
+                        *ngFor="let client of clients"
+                        value="{{client.name}}">
+                        {{ client.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Employee</mat-label>
+                <mat-select [(ngModel)]="appointment.employee" name="employee">
+                    <mat-option
+                        *ngFor="let employee of employees"
+                        value="{{employee.name}}">
+                        {{ employee.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>VIN</mat-label>
+                <mat-select [(ngModel)]="appointment.vin" name="vin">
+                    <mat-option
+                        *ngFor="let vin of vins"
+                        value="{{vin.number}}">
+                        {{ vin.number }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="myDatePicker" [(ngModel)]="appointment.date" name="date">
+                <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-split-label-left" appearance="fill">
+                <mat-label>Starting Time</mat-label>
+                <input matInput [(ngModel)]="appointment.startingTime" name="startingTime">
+            </mat-form-field>
+            <mat-form-field class="dialog-split-label-right" appearance="fill">
+                <mat-label>Ending Time</mat-label>
+                <input matInput [(ngModel)]="appointment.endingTime" name="endingTime">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="cancel()">CANCEL</button>
+    <button mat-flat-button mat-dialog-close (click)="create()" color="primary">CREATE</button>
+</mat-dialog-actions>
