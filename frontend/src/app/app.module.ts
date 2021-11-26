@@ -21,6 +21,10 @@ import { CarsComponent } from './car/cars/cars.component';
 import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dialog.component';
 
 import { SidenavService } from './services/navbar.service';
+
+import { EditEmployeeDialogComponent } from './employee/edit-employee-dialog/edit-employee-dialog.component';
+import { EditClientDialogComponent } from './client/edit-client-dialog/edit-client-dialog.component';
+
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { CreateAppointmentDialogComponent } from './appointment/create-appointment-dialog/create-appointment-dialog.component';
 import { EditAppointmentDialogComponent } from './appointment/edit-appointment-dialog/edit-appointment-dialog.component';
@@ -36,6 +40,8 @@ import { EditAppointmentDialogComponent } from './appointment/edit-appointment-d
     CreateClientDialogComponent,
     CarsComponent,
     CreateCarDialogComponent,
+    EditEmployeeDialogComponent,
+    EditClientDialogComponent
     AppointmentsComponent,
     CreateAppointmentDialogComponent,
     EditAppointmentDialogComponent

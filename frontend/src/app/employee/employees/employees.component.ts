@@ -5,19 +5,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-employee-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
-import { ContentObserver } from '@angular/cdk/observers';
+import { EditEmployeeDialogComponent } from '../edit-employee-dialog/edit-employee-dialog.component';
 
 export interface Employee {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  address: string;
+  phoneNumber : string;
+  email: string;
   role: string;
 }
 
 const employees: Employee[] = [
-  { id: 1, name: 'Andrea Rodriguez', role: 'Manager' },
-  { id: 2, name: 'Edison Garcia', role: 'Mechanic' },
-  { id: 3, name: 'Alejandro Sanchez', role: 'Mechanic' },
-  { id: 4, name: 'Jennifer Torres', role: 'Mechanic' }
+  { id: 1, firstName: 'Andrea', lastName: 'Rodriguez', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'andreameresa@gmail.com', role: 'Manager' },
+  { id: 2, firstName: 'Edison', lastName: 'Garcia', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'edisonmeresa@gmail.com', role: 'Mechanic' },
+  { id: 3, firstName: 'Alejandro', lastName: 'Sanchez', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'alejandromeresa@gmail.com', role: 'Mechanic' },
+  { id: 4, firstName: 'Jennifer', lastName: 'Torres', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'jennifermeresa@gmail.com', role: 'Mechanic' }
 ];
 
 @Component({
@@ -29,7 +34,7 @@ const employees: Employee[] = [
 
 export class EmployeesComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'role'];
+  displayedColumns: string[] = ['id', 'name', 'role', 'edit'];
   dataSource = new MatTableDataSource(employees);
   public sideNavState: boolean = true;
 
@@ -42,7 +47,8 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
-      return data.id.toString().toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter);
+      let name = data.firstName + ' ' + data.lastName;
+      return data.id.toString().toLowerCase().includes(filter) || name.toLowerCase().includes(filter);
     }
   }
 
@@ -60,13 +66,48 @@ export class EmployeesComponent implements OnInit {
         console.log(result);
         let employee = <Employee>{
           id: employees[employees.length - 1].id + 1,
-          name: result.firstName + ' ' + result.lastName,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          dateOfBirth: result.dateOfBirth,
+          address: result.address,
+          phoneNumber: result.phoneNumber,
+          email: result.email,
           role: result.role
         }
         employees.push(employee);
         this.dataSource = new MatTableDataSource(employees);
       }
     })
+  }
+
+  openEditEmployeeDialog(employee: Employee) {
+    let dialogRef = this.dialog.open(EditEmployeeDialogComponent, {
+      data: {
+        employee: {
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          dateOfBirth: employee.dateOfBirth,
+          address: employee.address,
+          phoneNumber: employee.phoneNumber,
+          email: employee.email,
+          role: employee.role
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined){
+        employee.id = result.id,
+        employee.firstName = result.firstName,
+        employee.lastName = result.lastName,
+        employee.dateOfBirth = result.dateOfBirth,
+        employee.address = result.address,
+        employee.phoneNumber = result.phoneNumber,
+        employee.email = result.email,
+        employee.role = result.role
+      }
+    });
   }
 
   applyFilter(event: Event) {
