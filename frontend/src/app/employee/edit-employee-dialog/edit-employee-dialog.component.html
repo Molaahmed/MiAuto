@@ -35,7 +35,7 @@
                     Please enter a valid Date of Birth.
                 </mat-error>
                 <mat-error *ngIf="employeeForm.get('dateOfBirth')?.hasError('age')">
-                    The age of a new Employee must be at least 18.
+                    The age of an Employee must be at least 18.
                 </mat-error>
                 <mat-error *ngIf="employeeForm.get('dateOfBirth')?.hasError('required')">
                     This field is required.
