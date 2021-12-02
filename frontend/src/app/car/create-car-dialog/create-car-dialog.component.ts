@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
@@ -6,11 +7,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
   templateUrl: './create-car-dialog.component.html',
   styleUrls: ['./create-car-dialog.component.css']
 })
+
 export class CreateCarDialogComponent implements OnInit {
-  car = {
-    vin: '',
-    owner: ''
-  }
+
+  carForm = new FormGroup({
+    vin: new FormControl('', [Validators.pattern(/^[\d][A-Z][\d][A-Z]{2}[\d]{2}[A-Z][\d][A-Z][\d]{7}$/), Validators.required]),
+    owner: new FormControl('', Validators.required)
+  });
 
   public owners = [
     { id: 1, name: 'Santiago Flores' },
@@ -19,11 +22,14 @@ export class CreateCarDialogComponent implements OnInit {
     { id: 4, name: 'Luis Diaz' }
   ]
 
-  constructor(public dialogRef: MatDialogRef<CreateCarDialogComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<CreateCarDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   create(){
-    this.dialogRef.close(this.car);
+    if (this.carForm.valid) {
+      this.dialogRef.close(this.carForm.value);
+    }
   }
 
   cancel(){
