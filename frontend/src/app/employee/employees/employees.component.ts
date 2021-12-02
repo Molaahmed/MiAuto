@@ -19,10 +19,10 @@ export interface Employee {
 }
 
 const employees: Employee[] = [
-  { id: 1, firstName: 'Andrea', lastName: 'Rodriguez', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'andreameresa@gmail.com', role: 'Manager' },
-  { id: 2, firstName: 'Edison', lastName: 'Garcia', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'edisonmeresa@gmail.com', role: 'Mechanic' },
-  { id: 3, firstName: 'Alejandro', lastName: 'Sanchez', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'alejandromeresa@gmail.com', role: 'Mechanic' },
-  { id: 4, firstName: 'Jennifer', lastName: 'Torres', dateOfBirth: new Date(), address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 123 4567', email: 'jennifermeresa@gmail.com', role: 'Mechanic' }
+  { id: 1, firstName: 'Andrea', lastName: 'Rodriguez', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'andreameresa@gmail.com', role: 'Manager' },
+  { id: 2, firstName: 'Edison', lastName: 'Garcia', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'edisonmeresa@gmail.com', role: 'Mechanic' },
+  { id: 3, firstName: 'Alejandro', lastName: 'Sanchez', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'alejandromeresa@gmail.com', role: 'Mechanic' },
+  { id: 4, firstName: 'Jennifer', lastName: 'Torres', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'jennifermeresa@gmail.com', role: 'Mechanic' }
 ];
 
 @Component({
@@ -84,7 +84,6 @@ export class EmployeesComponent implements OnInit {
     let dialogRef = this.dialog.open(EditEmployeeDialogComponent, {
       data: {
         employee: {
-          id: employee.id,
           firstName: employee.firstName,
           lastName: employee.lastName,
           dateOfBirth: employee.dateOfBirth,
@@ -98,7 +97,6 @@ export class EmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined){
-        employee.id = result.id,
         employee.firstName = result.firstName,
         employee.lastName = result.lastName,
         employee.dateOfBirth = result.dateOfBirth,

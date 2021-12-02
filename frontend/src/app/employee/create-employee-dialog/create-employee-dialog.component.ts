@@ -10,6 +10,7 @@ import { TransformService } from 'src/app/services/transform.service';
   templateUrl: './create-employee-dialog.component.html',
   styleUrls: ['./create-employee-dialog.component.css']
 })
+
 export class CreateEmployeeDialogComponent implements OnInit {
 
   employeeForm = new FormGroup({
@@ -24,12 +25,32 @@ export class CreateEmployeeDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateEmployeeDialogComponent>,
-    private validationService: ValidationService,
     private tranformService: TransformService,
+    private validationService: ValidationService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  transformPhoneNumber(event: any) {
+    let transformedValue = this.tranformService.transformPhoneNumber(event);
+    this.employeeForm.controls['phoneNumber'].setValue(transformedValue);
+  }
+
+  validateDOB(dob: any) {
+    let isDateValid = this.validationService.isDateValid(dob);
+
+    if (!isDateValid) {
+      this.employeeForm.controls['dateOfBirth'].setErrors({ 'pattern': true });
+      return;
+    }
+
+    let isOverEighteen = this.validationService.isOverEighteen(dob);
+
+    if (!isOverEighteen) {
+      this.employeeForm.controls['dateOfBirth'].setErrors({ 'age': true });
+    }
+  }
+
   create() {
-    if (this.employeeForm.valid){
+    if (this.employeeForm.valid) {
       this.dialogRef.close(this.employeeForm.value);
     }
   }
@@ -39,25 +60,5 @@ export class CreateEmployeeDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  transformPhoneNumber(event: any) {
-    let transformedValue = this.tranformService.transformPhoneNumber(event);
-    this.employeeForm.controls['phoneNumber'].setValue(transformedValue);
-  }
-
-  validateDOB(dob: any) {   
-    let isDateValid = this.validationService.isDateValid(dob);
-
-    if (!isDateValid) {
-      this.employeeForm.controls['dateOfBirth'].setErrors({'pattern' : true});
-      return;
-    }
-
-    let isOverEighteen = this.validationService.isOverEighteen(dob);
-
-    if (!isOverEighteen) {
-      this.employeeForm.controls['dateOfBirth'].setErrors({'age' : true});
-    }
   }
 }
