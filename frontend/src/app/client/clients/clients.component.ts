@@ -76,28 +76,24 @@ export class ClientsComponent implements OnInit {
     let dialogRef = this.dialog.open(EditClientDialogComponent, {
       data: {
         client: {
-          id: client.id,
           firstName: client.firstName,
           lastName: client.lastName,
           dateOfBirth: client.dateOfBirth,
           address: client.address,
           phoneNumber: client.phoneNumber,
-          email: client.email,
-          car: client.car
+          email: client.email
         }
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined){
-        client.id = result.id;
         client.firstName = result.firstName;
         client.lastName = result.lastName;
         client.dateOfBirth = result.dateOfBirth;
         client.address = result.address;
         client.phoneNumber = result.phoneNumber;
         client.email = result.email;
-        client.car = result.car;
       }
     })
   }
