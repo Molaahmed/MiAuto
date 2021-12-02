@@ -96,7 +96,6 @@ export class AppointmentsComponent implements OnInit {
     let dialogRef = this.dialog.open(EditAppointmentDialogComponent, {
       data: {
         appointment: {
-          id: appointment.id,
           client: appointment.client,
           employee: appointment.employee,
           vin: appointment.vin,
@@ -109,7 +108,6 @@ export class AppointmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        appointment.id = result.id;
         appointment.client = result.client;
         appointment.employee = result.employee;
         appointment.vin = result.vin;
