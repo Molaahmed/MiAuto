@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ValidationService {
-    isDateValid(dob: any): boolean {
+    isDateOfBirthValid(dob: any): boolean {
         let regExp = /[\d][\d]?\/[\d][\d]?\/(19|20)[\d][\d]/g;
 
         if (regExp.test(dob)) {
@@ -19,5 +19,39 @@ export class ValidationService {
             return true;
         }
         return false;
+    }
+
+    isAppointmentDateValid(date: any): boolean {
+        let regExp = /[\d][\d]?\/[\d][\d]?\/(20)[\d][\d]/g;
+
+        if (regExp.test(date)) {
+            return true;
+        }
+        return false;
+    }
+
+    isAppointmentInTheFuture(date: any): boolean {
+        if (new Date(date).setHours(0, 0, 0, 0) >= new Date().setHours(0, 0, 0, 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    areTimesValid(startingTime: any, endingTime: any): boolean {
+        let hoursStartingTime = Number(startingTime.split(":")[0]);
+        let minutesStartingTime = Number(startingTime.split(":")[1]);
+
+        let hoursEndingTime = Number(endingTime.split(":")[0]);
+        let minutesEndingTime = Number(endingTime.split(":")[1]);
+
+        if (hoursStartingTime < hoursEndingTime) {
+            return true;
+        }
+        else if (hoursStartingTime == hoursEndingTime && minutesStartingTime < minutesEndingTime) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -35,7 +35,7 @@ export class CreateEmployeeDialogComponent implements OnInit {
   }
 
   validateDOB(dob: any) {
-    let isDateValid = this.validationService.isDateValid(dob);
+    let isDateValid = this.validationService.isDateOfBirthValid(dob);
 
     if (!isDateValid) {
       this.employeeForm.controls['dateOfBirth'].setErrors({ 'pattern': true });
