@@ -18,10 +18,10 @@ export interface Client {
 }
 
 const clients: Client[] = [
-  { id: 1, firstName: 'Santiago', lastName: 'Flores', dateOfBirth: new Date, address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 111 1111', email: 'santiagoflores@gmail.com', car: '1A1AA11A1A1111111' },
-  { id: 2, firstName: 'David', lastName: 'Macias', dateOfBirth: new Date, address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 222 2222', email: 'davidmacias@gmail.com', car: '2B2BB22B2B2222222' },
-  { id: 3, firstName: 'Victoria', lastName: 'Castillo', dateOfBirth: new Date, address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 333 3333', email: 'victoriacastillo@gmail.com', car: '3C3CC33C3C3333333' },
-  { id: 4, firstName: 'Luis', lastName: 'Diaz', dateOfBirth: new Date, address: 'Juan León Mera 19-36, Av. Patria, Quito', phoneNumber: '+593 4 444 4444', email:'luisdiaz@gmail.com', car: '4D4DD44D4D4444444' }
+  { id: 1, firstName: 'Santiago', lastName: 'Flores', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'santiagoflores@gmail.com', car: '1A1AA11A1A1111111' },
+  { id: 2, firstName: 'David', lastName: 'Macias', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'davidmacias@gmail.com', car: '2B2BB22B2B2222222' },
+  { id: 3, firstName: 'Victoria', lastName: 'Castillo', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'victoriacastillo@gmail.com', car: '3C3CC33C3C3333333' },
+  { id: 4, firstName: 'Luis', lastName: 'Diaz', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera 19-36, Av. Patria', phoneNumber: '4 123 4567', email:'luisdiaz@gmail.com', car: '4D4DD44D4D4444444' }
 ]
 
 @Component({
@@ -76,28 +76,24 @@ export class ClientsComponent implements OnInit {
     let dialogRef = this.dialog.open(EditClientDialogComponent, {
       data: {
         client: {
-          id: client.id,
           firstName: client.firstName,
           lastName: client.lastName,
           dateOfBirth: client.dateOfBirth,
           address: client.address,
           phoneNumber: client.phoneNumber,
-          email: client.email,
-          car: client.car
+          email: client.email
         }
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined){
-        client.id = result.id;
         client.firstName = result.firstName;
         client.lastName = result.lastName;
         client.dateOfBirth = result.dateOfBirth;
         client.address = result.address;
         client.phoneNumber = result.phoneNumber;
         client.email = result.email;
-        client.car = result.car;
       }
     })
   }
