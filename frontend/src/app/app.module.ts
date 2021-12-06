@@ -21,6 +21,8 @@ import { CarsComponent } from './car/cars/cars.component';
 import { CreateCarDialogComponent } from './car/create-car-dialog/create-car-dialog.component';
 
 import { SidenavService } from './services/navbar.service';
+import { ValidationService } from './services/validation.service';
+import { TransformService } from './services/transform.service';
 
 import { EditEmployeeDialogComponent } from './employee/edit-employee-dialog/edit-employee-dialog.component';
 import { EditClientDialogComponent } from './client/edit-client-dialog/edit-client-dialog.component';
@@ -55,7 +57,7 @@ import { EditAppointmentDialogComponent } from './appointment/edit-appointment-d
     FormsModule,
     HttpClientModule
   ],
-  providers: [ SidenavService, DatePipe ],
+  providers: [ SidenavService, ValidationService, TransformService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
