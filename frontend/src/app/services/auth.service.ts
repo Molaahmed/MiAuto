@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import axios from 'axios';
 
-const AUTH_API = 'http://127.0.0.1:80/api/';
+const AUTH_API = 'https://mi-auto-db-jbp5o.ondigitalocean.app/api/';
 
 @Injectable({
   providedIn: 'root'

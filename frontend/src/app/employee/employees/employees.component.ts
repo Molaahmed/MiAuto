@@ -9,7 +9,7 @@ import { EditEmployeeDialogComponent } from '../edit-employee-dialog/edit-employ
 
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/';
+const API_URL = 'https://mi-auto-db-jbp5o.ondigitalocean.app/api/';
 
 const Token = localStorage.getItem('session');
 
@@ -68,7 +68,7 @@ export class EmployeesComponent implements OnInit {
 
   getEmployees(){
     //getting the garage id
-      let id:Number;
+      let id: Number;
       axios.get(API_URL + 'garage/id',{ headers: {"Authorization" : `Bearer ${Token}`}}).then((res) => {
       id = res.data;
     //getting all the employees working on the garage by id
