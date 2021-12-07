@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { email, password } = this.form;
 
-    this.authService.login(email, password).subscribe(
+    this.authService.login(email, password).then(
       data => {
-        console.log(data);
+        localStorage.setItem('session',data.data);
         this.router.navigate(['/employees']);
 
       },
