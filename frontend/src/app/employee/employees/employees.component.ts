@@ -7,12 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
 import { EditEmployeeDialogComponent } from '../edit-employee-dialog/edit-employee-dialog.component';
 
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8000/api/';
-
-const Token = localStorage.getItem('session');
-
 export interface Employee {
   id: number;
   firstName: string;
@@ -24,7 +18,7 @@ export interface Employee {
   role: string;
 }
 
-let employees: Employee[] = [
+const employees: Employee[] = [
   { id: 1, firstName: 'Andrea', lastName: 'Rodriguez', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'andreameresa@gmail.com', role: 'Manager' },
   { id: 2, firstName: 'Edison', lastName: 'Garcia', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'edisonmeresa@gmail.com', role: 'Mechanic' },
   { id: 3, firstName: 'Alejandro', lastName: 'Sanchez', dateOfBirth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phoneNumber: '4 123 4567', email: 'alejandromeresa@gmail.com', role: 'Mechanic' },
@@ -49,8 +43,6 @@ export class EmployeesComponent implements OnInit {
       console.log(res);
       this.sideNavState = res;
     });
-    this.getAuthenticatedUser();
-    this.getEmployees();
   }
 
   ngOnInit() {
@@ -61,21 +53,9 @@ export class EmployeesComponent implements OnInit {
   }
 
   getAuthenticatedUser() {
-    this.userService.user().then(data => {
-      console.log('user : ' , data.data)
+    this.userService.user().subscribe(data => {
+      console.log('user : ' , data)
     })
-  }
-
-  getEmployees(){
-    //getting the garage id
-      let id:Number;
-      axios.get(API_URL + 'garage/id',{ headers: {"Authorization" : `Bearer ${Token}`}}).then((res) => {
-      id = res.data;
-    //getting all the employees working on the garage by id
-       axios.get(API_URL + 'employees/' + id,{ headers: {"Authorization" : `Bearer ${Token}`} })
-      .then((res) =>  console.log(res.data));
-     })
-     
   }
 
   openCreateEmployeeDialog() {
