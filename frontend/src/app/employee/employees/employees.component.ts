@@ -20,14 +20,7 @@ export interface Employee {
   role: string;
 }
 
-// let employees: Employee[] = [
-//   { id: 1, first_name: 'Andrea', last_name: 'Rodriguez', date_of_birth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phone_number: '4 123 4567', email: 'andreameresa@gmail.com', role: 'Manager' },
-//   { id: 2, first_name: 'Edison', last_name: 'Garcia', date_of_birth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phone_number: '4 123 4567', email: 'edisonmeresa@gmail.com', role: 'Mechanic' },
-//   { id: 3, first_name: 'Alejandro', last_name: 'Sanchez', date_of_birth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phone_number: '4 123 4567', email: 'alejandromeresa@gmail.com', role: 'Mechanic' },
-//   { id: 4, first_name: 'Jennifer', last_name: 'Torres', date_of_birth: new Date('01/01/2000'), address: 'Juan León Mera, 19-36, Av. Patria', phone_number: '4 123 4567', email: 'jennifermeresa@gmail.com', role: 'Mechanic' }
-// ];
-
-let employees: Employee[];
+let EMPLOYEES: Employee[];
 
 @Component({
   selector: 'app-employees',
@@ -39,7 +32,7 @@ let employees: Employee[];
 export class EmployeesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'role', 'edit'];
-  dataSource = new MatTableDataSource(employees);
+  dataSource = new MatTableDataSource(EMPLOYEES);
   public sideNavState: boolean = true;
 
   constructor(public dialog: MatDialog, private _sidenavService: SidenavService, private userService: UserService, private employeeService: EmployeeService, private garageService: GarageService) {
@@ -51,20 +44,27 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.filterPredicate = function (data, filter: string): boolean {
-      let name = data.first_name + ' ' + data.last_name;
-      return data.id.toString().toLowerCase().includes(filter) || name.toLowerCase().includes(filter);
-    }
+  }
+
+  employeesFilterPredicate(data: Employee, filter: string) {
+    let name = data.first_name + ' ' + data.last_name;
+    return data.id.toString().toLowerCase().includes(filter) || name.toLowerCase().includes(filter);
   }
 
   getEmployees() {
     this.garageService.getGarageId().then(data => {
       let garageId = data.data;
-      console.log(garageId);
 
       this.employeeService.getAllByGarageId(garageId).then(data => {
-        console.log(data.data);
-        this.dataSource = data.data;
+        EMPLOYEES = <Employee[]> data.data;
+
+        for (let employee of EMPLOYEES) {
+          if (employee.role.includes('garage_')) {
+            employee.role = employee.role.replace('garage_', '');
+          }
+          employee.role = employee.role.charAt(0).toUpperCase() + employee.role.substring(1);
+        }
+        this.dataSource = new MatTableDataSource(EMPLOYEES);
       });
     });
   }
@@ -76,7 +76,7 @@ export class EmployeesComponent implements OnInit {
       if (result != undefined) {
         console.log(result);
         let employee = <Employee>{
-          id: employees[employees.length - 1].id + 1,
+          id: EMPLOYEES[EMPLOYEES.length - 1].id + 1,
           first_name: result.firstName,
           last_name: result.lastName,
           date_of_birth: result.dateOfBirth,
@@ -85,8 +85,8 @@ export class EmployeesComponent implements OnInit {
           email: result.email,
           role: result.role
         }
-        employees.push(employee);
-        this.dataSource = new MatTableDataSource(employees);
+        EMPLOYEES.push(employee);
+        this.dataSource = new MatTableDataSource(EMPLOYEES);
       }
     })
   }
@@ -122,5 +122,6 @@ export class EmployeesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filterPredicate = this.employeesFilterPredicate;
   }
 }
