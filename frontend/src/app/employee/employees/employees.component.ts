@@ -4,10 +4,10 @@ import { SidenavService } from 'src/app/services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialogComponent } from '../create-employee-dialog/create-employee-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from 'src/app/services/user.service';
 import { EditEmployeeDialogComponent } from '../edit-employee-dialog/edit-employee-dialog.component';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { GarageService } from 'src/app/services/garage.service';
+import { DatePipe } from '@angular/common';
 
 export interface Employee {
   id: number;
@@ -18,6 +18,17 @@ export interface Employee {
   phone_number: string;
   email: string;
   role: string;
+}
+
+export interface BackendEmployee {
+  first_name: string;
+  last_name: string;
+  date_of_birth: string;
+  address: string;
+  phone_number: string;
+  email: string;
+  garage_id: number;
+  role: number;
 }
 
 let EMPLOYEES: Employee[];
@@ -35,9 +46,12 @@ export class EmployeesComponent implements OnInit {
   dataSource = new MatTableDataSource(EMPLOYEES);
   public sideNavState: boolean = true;
 
-  constructor(public dialog: MatDialog, private _sidenavService: SidenavService, private userService: UserService, private employeeService: EmployeeService, private garageService: GarageService) {
-    this._sidenavService.sideNavState$.subscribe(res => {
-      console.log(res);
+  constructor(public dialog: MatDialog,
+    private datePipe: DatePipe,
+    private sidenavService: SidenavService,
+    private employeeService: EmployeeService,
+    private garageService: GarageService) {
+    this.sidenavService.sideNavState$.subscribe(res => {
       this.sideNavState = res;
     });
     this.getEmployees();
@@ -56,7 +70,7 @@ export class EmployeesComponent implements OnInit {
       let garageId = data.data;
 
       this.employeeService.getAllByGarageId(garageId).then(data => {
-        EMPLOYEES = <Employee[]> data.data;
+        EMPLOYEES = <Employee[]>data.data;
 
         for (let employee of EMPLOYEES) {
           if (employee.role.includes('garage_')) {
@@ -74,19 +88,26 @@ export class EmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        console.log(result);
-        let employee = <Employee>{
-          id: EMPLOYEES[EMPLOYEES.length - 1].id + 1,
-          first_name: result.firstName,
-          last_name: result.lastName,
-          date_of_birth: result.dateOfBirth,
-          address: result.address,
-          phone_number: result.phoneNumber,
-          email: result.email,
-          role: result.role
-        }
-        EMPLOYEES.push(employee);
-        this.dataSource = new MatTableDataSource(EMPLOYEES);
+        let employee = <BackendEmployee>result;
+
+        // Convert Date of Birth
+        let convertedDate = this.datePipe.transform(result.date_of_birth, 'yyyy-MM-dd');
+        employee.date_of_birth = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          let garageId = data.data;
+          employee.garage_id = garageId;
+
+          // Convert Role
+          employee.role = +result.role;
+
+          this.employeeService.createEmployee(employee).then(data => {
+            console.log(data.data);
+
+            this.getEmployees();
+          });
+        });
       }
     })
   }
