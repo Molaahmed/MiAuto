@@ -14,11 +14,11 @@ import { TransformService } from 'src/app/services/transform.service';
 export class CreateClientDialogComponent implements OnInit {
 
   clientForm = new FormGroup({
-    firstName: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
-    lastName: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
-    dateOfBirth: new FormControl('', Validators.required),
+    first_name: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
+    last_name: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
+    date_of_birth: new FormControl('', Validators.required),
     address: new FormControl('', [Validators.pattern(/^[A-zÀ-ú ]+[,\s]+[\d(-\d)?]+[,\s]+[a-zA-Z .]+(?:([,\s]?)+([a-zA-Z "'.]?))+$/), Validators.required]),
-    phoneNumber: new FormControl('', [Validators.pattern(/^[\d][\d]?[\s][\d]{3}[\s][\d]{4}$/), Validators.required]),
+    phone_number: new FormControl('', [Validators.pattern(/^[\d][\d]?[\s][\d]{3}[\s][\d]{4}$/), Validators.required]),
     email: new FormControl('', [Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/), Validators.required])
   });
 
@@ -30,21 +30,21 @@ export class CreateClientDialogComponent implements OnInit {
 
   transformPhoneNumber(event: any) {
     let transformedValue = this.transformService.transformPhoneNumber(event);
-    this.clientForm.controls['phoneNumber'].setValue(transformedValue);
+    this.clientForm.controls['phone_number'].setValue(transformedValue);
   }
 
   validateDOB(dob: any) {
     let isDateValid = this.validationService.isDateOfBirthValid(dob);
 
     if (!isDateValid) {
-      this.clientForm.controls['dateOfBirth'].setErrors({ 'pattern': true });
+      this.clientForm.controls['date_of_birth'].setErrors({ 'pattern': true });
       return;
     }
 
     let isOverEighteen = this.validationService.isOverEighteen(dob);
 
     if (!isOverEighteen) {
-      this.clientForm.controls['dateOfBirth'].setErrors({ 'age': true });
+      this.clientForm.controls['date_of_birth'].setErrors({ 'age': true });
     }
   }
 

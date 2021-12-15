@@ -6,6 +6,9 @@ import { CreateClientDialogComponent } from '../create-client-dialog/create-clie
 import { MatTableDataSource } from '@angular/material/table'
 import { EditClientDialogComponent } from '../edit-client-dialog/edit-client-dialog.component';
 import { ClientService } from 'src/app/services/client.service';
+import { CarService } from 'src/app/services/car.service';
+import { GarageService } from 'src/app/services/garage.service';
+import { DatePipe } from '@angular/common';
 
 export interface Client {
   id: number;
@@ -15,6 +18,17 @@ export interface Client {
   address: string;
   phone_number: string;
   email: string;
+  car: string;
+}
+
+export interface BackendClient {
+  first_name: string;
+  last_name: string;
+  date_of_birth: string;
+  address: string;
+  phone_number: string;
+  email: string;
+  garage_id: number;
 }
 
 let CLIENTS: Client[];
@@ -32,8 +46,11 @@ export class ClientsComponent implements OnInit {
   public sideNavState: boolean = true;
 
   constructor(public dialog: MatDialog,
+    private datePipe: DatePipe,
     private sidenavService: SidenavService,
-    private clientService: ClientService) {
+    private clientService: ClientService,
+    private carService: CarService,
+    private garageService: GarageService) {
     this.sidenavService.sideNavState$.subscribe(res => {
       this.sideNavState = res;
     });
@@ -51,6 +68,18 @@ export class ClientsComponent implements OnInit {
   getClients() {
     this.clientService.getAll().then(data => {
       CLIENTS = <Client[]> data.data.data;
+
+      for (let client of CLIENTS) {
+        this.carService.getAllByClientId(client.id).then(data => {
+          let cars = data.data.data;
+          if (cars.length != 0) {
+            client.car = cars[0].vin_number;
+            if (cars.length > 1) {
+              client.car += ", ...";
+            }
+          }
+        });
+      }
       this.dataSource = new MatTableDataSource(CLIENTS);
     });
   }
@@ -60,47 +89,47 @@ export class ClientsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        console.log(result);
-        let client = <Client>{
-          id: CLIENTS[CLIENTS.length - 1].id + 1,
-          first_name: result.firstName,
-          last_name: result.lastName,
-          date_of_birth: result.dateOfBirth,
-          address: result.address,
-          phone_number: result.phoneNumber,
-          email: result.email,
-          car: result.car
-        };
-        CLIENTS.push(client);
-        this.dataSource = new MatTableDataSource(CLIENTS);
+        let client = <BackendClient> result;
+
+        // Convert Date of Birth
+        let convertedDate = this.datePipe.transform(result.date_of_birth, 'yyyy-MM-dd');
+        client.date_of_birth = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          client.garage_id = data.data;
+
+          this.clientService.createClient(client).then(data => {
+            console.log(data.data);
+            this.getClients();
+          });
+        });
       }
     });
   }
 
   openEditClientDialog(client: Client) {
-    let dialogRef = this.dialog.open(EditClientDialogComponent, {
-      data: {
-        client: {
-          firstName: client.first_name,
-          lastName: client.last_name,
-          dateOfBirth: client.date_of_birth,
-          address: client.address,
-          phoneNumber: client.phone_number,
-          email: client.email
-        }
-      }
-    });
+    let dialogRef = this.dialog.open(EditClientDialogComponent, { data: client });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        client.first_name = result.firstName;
-        client.last_name = result.lastName;
-        client.date_of_birth = result.dateOfBirth;
-        client.address = result.address;
-        client.phone_number = result.phoneNumber;
-        client.email = result.email;
+        let updatedClient = <BackendClient> result;
+
+        // Convert Date of Birth
+        let convertedDate = this.datePipe.transform(result.date_of_birth, 'yyyy-MM-dd');
+        updatedClient.date_of_birth = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          updatedClient.garage_id = data.data;
+
+          this.clientService.updateClient(client.id, updatedClient).then(data => {
+            console.log(data.data);
+            this.getClients();
+          });
+        });
       }
-    })
+    });
   }
 
   applyFilter(event: Event) {

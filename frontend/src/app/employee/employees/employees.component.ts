@@ -88,7 +88,7 @@ export class EmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        let employee = <BackendEmployee>result;
+        let employee = <BackendEmployee> result;
 
         // Convert Date of Birth
         let convertedDate = this.datePipe.transform(result.date_of_birth, 'yyyy-MM-dd');
