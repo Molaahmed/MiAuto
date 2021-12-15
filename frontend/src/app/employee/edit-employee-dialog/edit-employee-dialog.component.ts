@@ -5,6 +5,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ValidationService } from 'src/app/services/validation.service';
 import { TransformService } from 'src/app/services/transform.service';
 
+export interface Employee {
+  id: number;
+  first_name: string;
+  last_name: string;
+  date_of_birth: Date;
+  address: string;
+  phone_number: string;
+  email: string;
+  role: string;
+}
+
 @Component({
   selector: 'app-edit-employee-dialog',
   templateUrl: './edit-employee-dialog.component.html',
@@ -14,29 +25,39 @@ import { TransformService } from 'src/app/services/transform.service';
 export class EditEmployeeDialogComponent implements OnInit {
 
   employeeForm = new FormGroup({
-    firstName: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
-    lastName: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
-    dateOfBirth: new FormControl('', Validators.required),
+    first_name: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
+    last_name: new FormControl('', [Validators.pattern(/^[a-zA-Z ]*$/), Validators.required]),
+    date_of_birth: new FormControl('', Validators.required),
     address: new FormControl('', [Validators.pattern(/^[A-zÀ-ú ]+[,\s]+[\d(-\d)?]+[,\s]+[a-zA-Z .]+(?:([,\s]?)+([a-zA-Z "'.]?))+$/), Validators.required]),
-    phoneNumber: new FormControl('', [Validators.pattern(/^[\d][\d]?[\s][\d]{3}[\s][\d]{4}$/), Validators.required]),
+    phone_number: new FormControl('', [Validators.pattern(/^[\d][\d]?[\s][\d]{3}[\s][\d]{4}$/), Validators.required]),
     email: new FormControl('', [Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/), Validators.required]),
     role: new FormControl('', Validators.required)
   });
+
+  public roles = [
+    { id: 2, name: 'Mechanic' },
+    { id: 4, name: 'Manager' }
+  ];
+
+  public currentRole = null;
 
   constructor(
     public dialogRef: MatDialogRef<EditEmployeeDialogComponent>,
     private transformService: TransformService,
     private validationService: ValidationService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public employee: Employee) {
     this.employeeForm.setValue({
-      firstName: data.employee.firstName,
-      lastName: data.employee.lastName,
-      dateOfBirth: data.employee.dateOfBirth,
-      address: data.employee.address,
-      phoneNumber: data.employee.phoneNumber,
-      email: data.employee.email,
-      role: data.employee.role
+      first_name: employee.first_name,
+      last_name: employee.last_name,
+      date_of_birth: employee.date_of_birth,
+      address: employee.address,
+      phone_number: employee.phone_number,
+      email: employee.email,
+      role: employee.role
     });
+
+    const toSelect = this.roles.find(role => role.name == employee.role)?.id;
+    this.employeeForm.controls['role'].setValue(toSelect);
   }
 
   transformPhoneNumber(phoneNumber: any) {

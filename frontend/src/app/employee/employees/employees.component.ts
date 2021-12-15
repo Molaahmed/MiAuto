@@ -96,46 +96,37 @@ export class EmployeesComponent implements OnInit {
 
         // Set GarageId
         this.garageService.getGarageId().then(data => {
-          let garageId = data.data;
-          employee.garage_id = garageId;
-
-          // Convert Role
-          employee.role = +result.role;
+          employee.garage_id = data.data;
 
           this.employeeService.createEmployee(employee).then(data => {
             console.log(data.data);
-
             this.getEmployees();
           });
         });
       }
-    })
+    });
   }
 
   openEditEmployeeDialog(employee: Employee) {
-    let dialogRef = this.dialog.open(EditEmployeeDialogComponent, {
-      data: {
-        employee: {
-          firstName: employee.first_name,
-          lastName: employee.last_name,
-          dateOfBirth: employee.date_of_birth,
-          address: employee.address,
-          phoneNumber: employee.phone_number,
-          email: employee.email,
-          role: employee.role
-        }
-      }
-    });
+    let dialogRef = this.dialog.open(EditEmployeeDialogComponent, { data: employee });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        employee.first_name = result.firstName,
-          employee.last_name = result.lastName,
-          employee.date_of_birth = result.dateOfBirth,
-          employee.address = result.address,
-          employee.phone_number = result.phoneNumber,
-          employee.email = result.email,
-          employee.role = result.role
+        let updatedEmployee = <BackendEmployee> result;
+
+        // Convert Date of Birth
+        let convertedDate = this.datePipe.transform(result.date_of_birth, 'yyyy-MM-dd');
+        updatedEmployee.date_of_birth = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          updatedEmployee.garage_id = data.data;
+
+          this.employeeService.updateEmployee(employee.id, updatedEmployee).then(data => {
+            console.log(data.data);
+            this.getEmployees();
+          });
+        });
       }
     });
   }

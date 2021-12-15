@@ -29,4 +29,8 @@ export class EmployeeService {
     createEmployee(employee: BackendEmployee) {
         return axios.post(API_URL + 'employee/create', employee, { headers: { "Authorization": `Bearer ${Token}` } });
     }
+
+    updateEmployee(id: Number, employee: BackendEmployee) {
+        return axios.put(API_URL + 'employee/update/' + id, employee, { headers: { "Authorization": `Bearer ${Token}` } });
+    }
 }
