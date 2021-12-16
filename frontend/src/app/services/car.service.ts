@@ -10,6 +10,10 @@ const Token = localStorage.getItem('session');
 })
 export class CarService {
 
+    getAll() {
+        return axios.get(API_URL + 'cars', { headers: { "Authorization": `Bearer ${Token}` } });
+    }
+    
     getAllByClientId(clientId: Number) {
         return axios.get(API_URL + 'garage/client/cars/' + clientId, { headers: { "Authorization": `Bearer ${Token}` } });
     }
