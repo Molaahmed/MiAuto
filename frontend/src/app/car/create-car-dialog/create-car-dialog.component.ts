@@ -1,6 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ClientService } from 'src/app/services/client.service';
+
+export interface Client {
+    id: number;
+    first_name: string;
+    last_name: string;
+}
 
 @Component({
   selector: 'app-create-car-dialog',
@@ -15,16 +22,14 @@ export class CreateCarDialogComponent implements OnInit {
     owner: new FormControl('', Validators.required)
   });
 
-  public owners = [
-    { id: 1, name: 'Santiago Flores' },
-    { id: 2, name: 'David Macias' },
-    { id: 3, name: 'Victoria Castillo' },
-    { id: 4, name: 'Luis Diaz' }
-  ]
+  public CLIENTS: Client[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CreateCarDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private clientService: ClientService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.getClients();
+    }
 
   create(){
     if (this.carForm.valid) {
@@ -34,6 +39,12 @@ export class CreateCarDialogComponent implements OnInit {
 
   cancel(){
     this.dialogRef.close();
+  }
+
+  getClients() {
+    this.clientService.getAll().then(data => {
+      this.CLIENTS = <Client[]> data.data.data;
+    });
   }
   
   ngOnInit(): void {

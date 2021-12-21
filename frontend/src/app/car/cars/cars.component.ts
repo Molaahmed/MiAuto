@@ -6,12 +6,27 @@ import { MatTableDataSource } from '@angular/material/table'
 import { CreateCarDialogComponent } from '../create-car-dialog/create-car-dialog.component';
 import { CarService } from 'src/app/services/car.service';
 import { ClientService } from 'src/app/services/client.service';
+import { GenerateCarService } from 'src/app/services/generateCar.service';
 
 export interface Car {
   id: number;
   user_id: number;
   vin_number: string;
   owner: string;
+}
+
+export interface BackendCar {
+  user_id: number;
+  vin_number: string;
+  plate: string;
+  type: string
+  fuel: string;
+  make: string;
+  model: string;
+  engine: string;
+  gear_box: string;
+  air_conditioner: number;
+  color: string;
 }
 
 export interface Client {
@@ -41,7 +56,8 @@ export class CarsComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private sidenavService: SidenavService,
     private carService: CarService,
-    private clientService: ClientService) {
+    private clientService: ClientService,
+    private generateCarService: GenerateCarService) {
     this.sidenavService.sideNavState$.subscribe(res => {
       this.sideNavState = res;
     });
@@ -80,15 +96,13 @@ export class CarsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        console.log(result);
-        let car = <Car>{
-          id: CARS[CARS.length - 1].id + 1,
-          vin_number: result.vin,
-          owner: result.owner,
-        }
-        CARS.push(car);
-        this.dataSource = new MatTableDataSource(CARS);
+        let car = this.generateCarService.generateCar(result.owner, result.vin);
+
+        this.carService.createCar(car).then(data => {
+          console.log(data.data);
+          this.getCars();
+        });
       }
-    })
+    });
   }
 }
