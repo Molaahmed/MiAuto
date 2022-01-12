@@ -7,23 +7,45 @@ import { CreateAppointmentDialogComponent } from '../create-appointment-dialog/c
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EditAppointmentDialogComponent } from '../edit-appointment-dialog/edit-appointment-dialog.component';
+import { GarageService } from 'src/app/services/garage.service';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { ClientService } from 'src/app/services/client.service';
 
 export interface Appointment {
   id: number;
-  client: string;
-  employee: string;
-  vin: string;
+  user_id: number;
+  garage_id: number;
+  vin_number: string;
+  description: string;
   date: Date;
+  startingTime: string;
+  endingTime: string;
+  client: string;
+}
+
+export interface BackendAppointment {
+  id: number;
+  user_id: number;
+  garage_id: number;
+  vin_number: string;
+  description: string;
+  date: string;
   startingTime: string;
   endingTime: string;
 }
 
-const appointments: Appointment[] = [
-  { id: 1, client: 'Santiago Flores', employee: 'Alejandro Sanchez', vin: '1A1AA11A1A1111111', date: new Date(2022, 0, 1), startingTime: '9:00', endingTime: '11:00' },
-  { id: 2, client: 'David Macias', employee: 'Edison Garcia', vin: '2B2BB22B2B2222222', date: new Date(2022, 1, 1), startingTime: '9:00', endingTime: '12:00' },
-  { id: 3, client: 'Victoria Castillo', employee: 'Alejandro Sanchez', vin: '3C3CC33C3C3333333', date: new Date(2022, 2, 1), startingTime: '13:00', endingTime: '14:00' },
-  { id: 4, client: 'Luis Diaz', employee: 'Jennifer Torres', vin: '4D4DD44D4D4444444', date: new Date(2022, 3, 1), startingTime: '15:00', endingTime: '17:00' }
-]
+export interface Client {
+  id: number;
+  first_name: string;
+  last_name: string;
+  date_of_birth: Date;
+  address: string;
+  phone_number: string;
+  email: string;
+}
+
+let APPOINTMENTS: Appointment[];
+let unfilteredAppointments: Appointment[];
 
 @Component({
   selector: 'app-appointments',
@@ -33,8 +55,8 @@ const appointments: Appointment[] = [
 })
 export class AppointmentsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'client', 'employee', 'vin', 'date', 'time', 'edit'];
-  dataSource = new MatTableDataSource(appointments);
+  displayedColumns: string[] = ['id', 'client', 'vin', 'date', 'time', 'edit'];
+  dataSource = new MatTableDataSource(APPOINTMENTS);
   public sideNavState: boolean = true;
 
   filterForm = new FormGroup({
@@ -45,30 +67,75 @@ export class AppointmentsComponent implements OnInit {
   get fromDate() { return this.filterForm.get('fromDate')!.value; }
   get toDate() { return this.filterForm.get('toDate')!.value; }
   
-  constructor(public dialog: MatDialog, private _sidenavService: SidenavService, public datePipe: DatePipe) {
-    this._sidenavService.sideNavState$.subscribe(res => {
-      console.log(res);
+  constructor(public dialog: MatDialog,
+    public datePipe: DatePipe,
+    private sidenavService: SidenavService,
+    private appointmentService: AppointmentService,
+    private garageService: GarageService,
+    private clientService: ClientService) {
+    this.sidenavService.sideNavState$.subscribe(res => {
       this.sideNavState = res;
     });
+    this.getAppointments();
   }
 
   ngOnInit() {
-    this.dataSource.filterPredicate = (data, filter) =>{
-      if (this.fromDate && this.toDate) {
-        return data.date >= this.fromDate && data.date <= this.toDate;
-      }
-      return true;
-    }
+  }
+
+  getAppointments() {
+    this.garageService.getGarageId().then(data => {
+      let garageId = data.data;
+
+      this.appointmentService.getAllByGarageId(garageId).then(data => {
+        APPOINTMENTS = <Appointment[]>data.data;
+
+        this.clientService.getAll().then(data => {
+          let users = <Client[]>data.data.data;
+          
+          APPOINTMENTS = APPOINTMENTS.filter(appointment => {
+            return users.some((user) => {
+              return user.id == appointment.user_id
+            });
+          });
+
+          for (let appointment of APPOINTMENTS) {
+            let user = users.find(user => user.id == appointment.user_id);
+            if (user != undefined) {
+              appointment.client = user.first_name + ' ' + user.last_name;
+            }
+
+            // Formatting startingTime
+            if (appointment.startingTime.charAt(0) == '0') {
+              appointment.startingTime = appointment.startingTime.substring(1);
+            }
+            appointment.startingTime = appointment.startingTime.substring(0, appointment.startingTime.length - 3);
+
+            // Formatting endingTime
+            if (appointment.endingTime.charAt(0) == '0') {
+              appointment.endingTime = appointment.endingTime.substring(1);
+            }
+            appointment.endingTime = appointment.endingTime.substring(0, appointment.endingTime.length - 3);
+          }
+          this.dataSource = new MatTableDataSource(APPOINTMENTS);
+        });
+      });
+    });
   }
 
   dateRangeChange() {
-    // Just to trigger the filter.
-    this.dataSource.filter = '' + Math.random();
+    unfilteredAppointments = APPOINTMENTS;
+    APPOINTMENTS = APPOINTMENTS.filter(appointment => {
+      return appointment.date >= this.fromDate && appointment.date <= this.toDate
+    });
+    this.dataSource = new MatTableDataSource(APPOINTMENTS);
   }
 
   clearStartDate() {
     this.filterForm.reset();
-    this.dateRangeChange();
+    this.dataSource.filter = '';
+
+    APPOINTMENTS = unfilteredAppointments;
+    this.dataSource = new MatTableDataSource(APPOINTMENTS);
   }
 
   openCreateAppointmentDialog() {
@@ -76,44 +143,51 @@ export class AppointmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        console.log("result is not undefined");
-        let appointment = <Appointment> {
-          id: appointments[appointments.length - 1].id + 1,
-          client: result.client,
-          employee: result.employee,
-          vin: result.vin,
-          date: result.date,
-          startingTime: result.startingTime,
-          endingTime: result.endingTime
-        };
-        appointments.push(appointment);
-        this.dataSource = new MatTableDataSource(appointments);
+        let appointment = <BackendAppointment> result;
+
+        // Add description to appointment
+        appointment.description = 'hello';
+
+        // Convert Date
+        let convertedDate = this.datePipe.transform(result.date, 'yyyy-MM-dd');
+        appointment.date = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          appointment.garage_id = data.data;
+
+          this.appointmentService.createAppointment(appointment).then(data => {
+            console.log(data.data);
+            this.getAppointments();
+          });
+        });
       }
-    })
+    });
   }
 
   openEditAppointmentDialog(appointment: Appointment) {
-    let dialogRef = this.dialog.open(EditAppointmentDialogComponent, {
-      data: {
-        appointment: {
-          client: appointment.client,
-          employee: appointment.employee,
-          vin: appointment.vin,
-          date: appointment.date,
-          startingTime: appointment.startingTime,
-          endingTime: appointment.endingTime
-        }
-      }
-    });
+    let dialogRef = this.dialog.open(EditAppointmentDialogComponent, { data: appointment });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        appointment.client = result.client;
-        appointment.employee = result.employee;
-        appointment.vin = result.vin;
-        appointment.date = result.date;
-        appointment.startingTime = result.startingTime;
-        appointment.endingTime = result.endingTime;
+        let updatedAppointment = <BackendAppointment> result;
+
+        updatedAppointment.id = appointment.id;
+        updatedAppointment.description = appointment.description;
+
+        // Convert Date
+        let convertedDate = this.datePipe.transform(result.date, 'yyyy-MM-dd');
+        updatedAppointment.date = convertedDate!;
+
+        // Set GarageId
+        this.garageService.getGarageId().then(data => {
+          updatedAppointment.garage_id = data.data;
+
+          this.appointmentService.updateAppointment(updatedAppointment).then(data => {
+            console.log(data.data);
+            this.getAppointments();
+          });
+        });
       }
     });
   }
