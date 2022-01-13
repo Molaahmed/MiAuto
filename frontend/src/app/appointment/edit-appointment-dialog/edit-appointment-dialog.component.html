@@ -4,11 +4,9 @@
         <div>
             <mat-form-field class="dialog-full-label" appearance="fill">
                 <mat-label>Client</mat-label>
-                <mat-select formControlName="client" name="client">
-                    <mat-option
-                        *ngFor="let client of clients"
-                        value="{{client.name}}">
-                        {{ client.name }}
+                <mat-select formControlName="user_id" name="client">
+                    <mat-option *ngFor="let client of CLIENTS" [value]="client.id">
+                        {{client.first_name}} {{client.last_name}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="appointmentForm.get('client')?.hasError('required')">
@@ -18,27 +16,10 @@
         </div>
         <div>
             <mat-form-field class="dialog-full-label" appearance="fill">
-                <mat-label>Employee</mat-label>
-                <mat-select formControlName="employee" name="employee">
-                    <mat-option
-                        *ngFor="let employee of employees"
-                        value="{{employee.name}}">
-                        {{ employee.name }}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="appointmentForm.get('employee')?.hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field class="dialog-full-label" appearance="fill">
                 <mat-label>VIN</mat-label>
-                <mat-select formControlName="vin" name="vin">
-                    <mat-option
-                        *ngFor="let vin of vins"
-                        value="{{vin.number}}">
-                        {{ vin.number }}
+                <mat-select formControlName="vin_number" name="vin">
+                    <mat-option *ngFor="let car of CARS" [value]="car.vin_number">
+                        {{car.vin_number}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="appointmentForm.get('vin')?.hasError('required')">

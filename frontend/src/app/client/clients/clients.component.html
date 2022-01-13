@@ -28,13 +28,13 @@
             <!-- Name Column -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let client"> {{client.firstName}} {{client.lastName}} </td>
+              <td mat-cell *matCellDef="let client"> {{client.first_name}} {{client.last_name}} </td>
             </ng-container>
 
             <!-- PhoneNumber Column -->
             <ng-container matColumnDef="phoneNumber">
               <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-              <td mat-cell *matCellDef="let client"> +593 {{client.phoneNumber}} </td>
+              <td mat-cell *matCellDef="let client"> +593 {{client.phone_number}} </td>
             </ng-container>
 
             <!-- Car(s) Column -->

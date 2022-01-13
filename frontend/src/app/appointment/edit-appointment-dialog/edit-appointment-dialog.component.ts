@@ -1,8 +1,34 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CarService } from 'src/app/services/car.service';
+import { ClientService } from 'src/app/services/client.service';
 
 import { ValidationService } from 'src/app/services/validation.service';
+
+export interface Appointment {
+  id: number;
+  user_id: number;
+  garage_id: number;
+  vin_number: string;
+  description: string;
+  date: Date;
+  startingTime: string;
+  endingTime: string;
+  client: string;
+}
+
+export interface Client {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface Car {
+  id: number;
+  user_id: number;
+  vin_number: string;
+}
 
 @Component({
   selector: 'app-edit-appointment-dialog',
@@ -11,57 +37,34 @@ import { ValidationService } from 'src/app/services/validation.service';
 })
 
 export class EditAppointmentDialogComponent implements OnInit {
-  appointment = {
-    client: '',
-    employee: '',
-    vin: '',
-    date: new Date,
-    startingTime: '',
-    endingTime: ''
-  }
 
   appointmentForm = new FormGroup({
-    client: new FormControl('', Validators.required),
-    employee: new FormControl('', Validators.required),
-    vin: new FormControl('', Validators.required),
+    user_id: new FormControl('', Validators.required),
+    vin_number: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
     startingTime: new FormControl('', [Validators.pattern(/^[\d][\d]?:[\d][\d]$/), Validators.required]),
     endingTime: new FormControl('', [Validators.pattern(/^[\d][\d]?:[\d][\d]$/), Validators.required])
-  })
+  });
 
-  public clients = [
-    { id: 1, name: 'Santiago Flores' },
-    { id: 2, name: 'David Macias' },
-    { id: 3, name: 'Victoria Castillo' },
-    { id: 4, name: 'Luis Diaz' }
-  ];
-
-  public employees = [
-    { id: 1, name: 'Andrea Rodriguez' },
-    { id: 2, name: 'Edison Garcia' },
-    { id: 3, name: 'Alejandro Sanchez' },
-    { id: 4, name: 'Jennifer Torres' }
-  ];
-
-  public vins = [
-    { id: 1, number: '1A1AA11A1A1111111' },
-    { id: 2, number: '2B2BB22B2B2222222' },
-    { id: 3, number: '3C3CC33C3C3333333' },
-    { id: 4, number: '4D4DD44D4D4444444' }
-  ];
+  public CLIENTS: Client[] = [];
+  public CARS: Car[] = [];
+  public unfilteredCars: Car[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<EditAppointmentDialogComponent>,
     private validationService: ValidationService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    private clientService: ClientService,
+    private carService: CarService,
+    @Inject(MAT_DIALOG_DATA) public appointment: Appointment) {
     this.appointmentForm.setValue({
-      client: data.appointment.client,
-      employee: data.appointment.employee,
-      vin: data.appointment.vin,
-      date: data.appointment.date,
-      startingTime: data.appointment.startingTime,
-      endingTime: data.appointment.endingTime
+      user_id: appointment.user_id,
+      vin_number: appointment.vin_number,
+      date: appointment.date,
+      startingTime: appointment.startingTime,
+      endingTime: appointment.endingTime
     });
+    this.getCars();
+    this.getClients();
   }
 
   validateDate(event: any) {
@@ -102,6 +105,19 @@ export class EditAppointmentDialogComponent implements OnInit {
       }
     }
   }
+
+  getClients() {
+    this.clientService.getAll().then(data => {
+      this.CLIENTS = <Client[]> data.data.data;
+    });
+  }
+
+  getCars() {
+    this.carService.getAll().then(data => {
+      this.CARS = <Car[]> data.data.data;
+    });
+  }
+
 
   update() {
     if (this.appointmentForm.valid) {

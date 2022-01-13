@@ -17,10 +17,8 @@
             <mat-form-field class="dialog-full-label" appearance="fill">
                 <mat-label>Owner</mat-label>
                 <mat-select formControlName="owner" name="owner">
-                    <mat-option
-                        *ngFor="let owner of owners"
-                        value="{{owner.name}}">
-                        {{ owner.name }}
+                    <mat-option *ngFor="let client of CLIENTS" [value]="client.id">
+                        {{client.first_name}} {{client.last_name}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="carForm.get('owner')?.hasError('required')">
