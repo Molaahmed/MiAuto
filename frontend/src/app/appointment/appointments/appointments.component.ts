@@ -115,6 +115,9 @@ export class AppointmentsComponent implements OnInit {
               appointment.endingTime = appointment.endingTime.substring(1);
             }
             appointment.endingTime = appointment.endingTime.substring(0, appointment.endingTime.length - 3);
+
+            // Converting date
+            appointment.date = new Date(appointment.date);
           }
           this.dataSource = new MatTableDataSource(APPOINTMENTS);
         });
