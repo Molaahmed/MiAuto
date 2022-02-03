@@ -1,0 +1,66 @@
+.navbar-container{
+    height: 100vh;
+}
+
+.employees-container{
+    background-color: #FBFCFD;
+    width: 100%;
+    display: flex;
+    padding: 40px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.overview-card{
+    width: 100%;
+}
+
+.card-title{
+    font-size: 30px;
+    font-weight: 550;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+}
+
+.add-employee-button{
+    float: right;
+    margin-top: -80px;
+}
+
+.filter-employees-field{
+    margin-left: 35px;
+}
+
+.filter-employees-field-label{
+    margin-left: 10px;
+}
+
+.filter-employees-field-icon{
+    opacity: 65%;
+}
+
+.filter-employees-field-input{
+    margin-left: 8px;
+}
+
+.table-edit-column{
+    text-align: right;
+    justify-content: flex-end;
+    opacity: 55%;
+}
+
+@media (max-width: 430px) {
+    .card-title{
+        font-size: 25px;
+        margin-left: -20px;
+    }
+
+    .filter-employees-field{
+        margin-left: 15px;
+    }
+}

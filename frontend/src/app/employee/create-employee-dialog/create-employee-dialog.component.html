@@ -1,0 +1,102 @@
+<h2 mat-dialog-title>Create New Employee</h2>
+<mat-dialog-content class="create-employee-dialog">
+    <form class="create-employee-form" [formGroup]="employeeForm" (ngSubmit)="create()">
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="first_name" name="first_name">
+                <mat-error *ngIf="employeeForm.get('first_name')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('first_name')?.hasError('pattern')">
+                    Please enter a valid First Name.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="last_name" name="last_name">
+                <mat-error *ngIf="employeeForm.get('last_name')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('last_name')?.hasError('pattern')">
+                    Please enter a valid Last Name.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Date of Birth</mat-label>
+                <input #dob matInput (dateChange)="validateDOB(dob.value)" [matDatepicker]="myDatePicker" formControlName="date_of_birth" name="date_of_birth">
+                <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatePicker></mat-datepicker>
+                <mat-error *ngIf="employeeForm.get('date_of_birth')?.hasError('pattern')">
+                    Please enter a valid Date of Birth.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('date_of_birth')?.hasError('age')">
+                    The age of a new Employee must be at least 18.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('date_of_birth')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" name="address" placeholder="Juan León Mera, 19-36, Av. Patria">
+                <mat-error *ngIf="employeeForm.get('address')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('address')?.hasError('pattern')">
+                    Please enter a valid Address.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill" floatLabel="always">
+                <mat-label>Phone Number</mat-label>
+                <input matInput (keyup)="transformPhoneNumber($event)" formControlName="phone_number" name="phone_number" placeholder="4 123 4567">
+                <span matPrefix>+593&nbsp;</span>
+                <mat-error *ngIf="employeeForm.get('phone_number')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('phone_number')?.hasError('pattern')">
+                    Please enter a valid Phone Number.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" name="email">
+                <mat-error *ngIf="employeeForm.get('email')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('email')?.hasError('pattern')">
+                    Please enter a valid Email.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role" name="role">
+                    <mat-option
+                        *ngFor="let role of roles"
+                        [value]="role.id">
+                        {{ role.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="employeeForm.get('role')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-button type="reset" (click)="cancel()">CANCEL</button>
+            <button mat-flat-button type="submit" color="primary">CREATE</button>
+        </div>
+    </form>
+</mat-dialog-content>

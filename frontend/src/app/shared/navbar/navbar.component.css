@@ -1,0 +1,70 @@
+.container{
+    background-color: white;
+}
+
+.nav-profile-picture{
+    width: 30px;
+    border-radius: 50%;
+}
+
+.nav-header{
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.nav-header-text{
+    margin-top: -37.5px;
+    margin-left: 50px;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.nav-header-icon{
+    margin-top: -95px;
+    margin-left: 250px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.nav-menu-icon{
+    opacity: 65%;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.nav-icon{
+    opacity: 65%;
+}
+
+.nav-icon.active{
+    opacity: 100%;
+}
+
+.nav-text{
+    position: absolute;
+    margin-top: 2.5px;
+    margin-left: 50px;
+    font-weight: 500;
+}
+
+.nav-divider{
+    margin-top: 20px;
+    color: #e5e5e5;
+}
+
+.nav-sub-header{
+    font-weight: 500;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 2.5px;
+    color: rgba(180, 180, 180, 1);
+}
+
+.mat-list-item.active{
+    background-color: #E3F2FD;
+    color: #2196F3;
+}
+
+
+.red{
+    color: rgb(211, 60, 60);
+}

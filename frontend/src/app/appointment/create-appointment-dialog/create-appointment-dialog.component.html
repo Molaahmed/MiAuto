@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Create New Appointment</h2>
+<mat-dialog-content>
+    <form class="create-appointment-form" [formGroup]="appointmentForm" (ngSubmit)="create()">
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Client</mat-label>
+                <mat-select formControlName="user_id" name="client">
+                    <mat-option *ngFor="let client of CLIENTS" [value]="client.id">
+                        {{client.first_name}} {{client.last_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="appointmentForm.get('client')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>VIN</mat-label>
+                <mat-select formControlName="vin_number" name="vin">
+                    <mat-option *ngFor="let car of CARS" [value]="car.vin_number">
+                        {{car.vin_number}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="appointmentForm.get('vin')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-full-label" appearance="fill">
+                <mat-label>Date</mat-label>
+                <input #date matInput (dateChange)="validateDate(date.value)" [matDatepicker]="myDatePicker" formControlName="date" name="date">
+                <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatePicker></mat-datepicker>
+                <mat-error *ngIf="appointmentForm.get('date')?.hasError('pattern')">
+                    Please enter a valid date.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('date')?.hasError('past')">
+                    A new appointment can't find place in the past.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="dialog-split-label-left" appearance="fill">
+                <mat-label>Starting Time</mat-label>
+                <input #startingTime matInput (change)="validateTimes({startingTime: startingTime.value, endingTime: endingTime.value})" formControlName="startingTime" name="startingTime">
+                <mat-error *ngIf="appointmentForm.get('startingTime')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('startingTime')?.hasError('moment')">
+                    Please enter an earlier time.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('startingTime')?.hasError('pattern')">
+                    Please enter a valid starting time.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="dialog-split-label-right" appearance="fill">
+                <mat-label>Ending Time</mat-label>
+                <input #endingTime matInput (change)="validateTimes({startingTime: startingTime.value, endingTime: endingTime.value})" formControlName="endingTime" name="endingTime">
+                <mat-error *ngIf="appointmentForm.get('endingTime')?.hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('endingTime')?.hasError('moment')">
+                    Please enter a later time.
+                </mat-error>
+                <mat-error *ngIf="appointmentForm.get('endingTime')?.hasError('pattern')">
+                    Please enter a valid ending time.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-button type="reset" (click)="cancel()">CANCEL</button>
+            <button mat-flat-button type="submit" color="primary">CREATE</button>
+        </div>
+    </form>
+</mat-dialog-content>
